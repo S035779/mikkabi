@@ -1,0 +1,25 @@
+{
+  "name": "mikkabi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S035779/mikkabi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/S035779/mikkabi/issues"
+  },
+  "homepage": "https://github.com/S035779/mikkabi#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  }
+}
