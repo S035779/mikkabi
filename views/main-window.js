@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
@@ -24,7 +25,11 @@ module.exports = class MainWindow {
   }
   createWindow() {
     this.window = new BrowserWindow({
-      x: 0, y: 0, width: 600, height: 800
+      x: 0, y: 0, width: 1150, height: 800
+      //, frame: false
+      //, titleBarStyle: 'hidden'
+      //, titleBarStyle: 'hiddenInset'
+      //, titleBarStyle: 'customButtonsOnHover', frame: false
     });
     this.window.loadURL(url.format({
       pathname: path.join(`${__dirname}/../public`, 'index.html'),

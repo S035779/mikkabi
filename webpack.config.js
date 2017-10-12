@@ -6,7 +6,7 @@ const config = {
   entry: './main.js',
   output: {
     path: path.resolve(__dirname, 'public/assets'),
-    filename: 'bundle.js'
+    filename: 'js/bundle.js'
   },
   module: {
     rules: [{

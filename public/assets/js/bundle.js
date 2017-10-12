@@ -13789,9 +13789,7 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FluxContainerConverter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__FluxContainerConverter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_appStore__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_AppAction__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Button_Button__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_webutils__ = __webpack_require__(13);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_webutils__ = __webpack_require__(13);
 
 
 
@@ -13817,13 +13815,13 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   handleIncrement() {
-    __WEBPACK_IMPORTED_MODULE_6__utils_webutils__["b" /* log */].info(`${pspid}> Request: handleIncrement`);
+    __WEBPACK_IMPORTED_MODULE_5__utils_webutils__["b" /* log */].info(`${pspid}> Request: handleIncrement`);
     //AppAction.increment(query, this.state.page);
     __WEBPACK_IMPORTED_MODULE_4__actions_AppAction__["a" /* default */].incrementCloseWatch(this.state.page);
   }
 
   handleDecrement() {
-    __WEBPACK_IMPORTED_MODULE_6__utils_webutils__["b" /* log */].info(`${pspid}> Request: handleDecrement`);
+    __WEBPACK_IMPORTED_MODULE_5__utils_webutils__["b" /* log */].info(`${pspid}> Request: handleDecrement`);
     //AppAction.decrement(query, this.state.page);
     __WEBPACK_IMPORTED_MODULE_4__actions_AppAction__["a" /* default */].decrementCloseWatch(this.state.page);
   }
@@ -13844,103 +13842,96 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     const Ext = item.IsAutomaticExtension;
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'li',
+      'tbody',
       { key: Aid },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'table',
-        { width: '100%' },
+        'tr',
+        null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'tbody',
+          'td',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: Img, width: '128', height: '128' })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'td',
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'tr',
+            'span',
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '10%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: Img, width: '128', height: '128' })
+              'a',
+              { href: Url, target: '_blank' },
+              Ttl
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '40%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'a',
-                  { href: Url, target: '_blank' },
-                  Ttl
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                'Bid period : ',
-                Stm,
-                ' ~ ',
-                Etm,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                'Condition : ',
-                Cdn,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                'Seller : ',
-                Sid,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                'AuctionID : ',
-                Aid,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                'Category : ',
-                Cgp
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '10%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                Prc,
-                ' yen'
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '10%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                Bid,
-                ' bids'
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '10%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                Stt
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '10%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                Ext === 'true' ? 'with Auto Extension' : ''
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'td',
-              { width: '10%' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                null,
-                'Now available.'
-              )
-            )
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            'Bid period : ',
+            Stm,
+            ' ~ ',
+            Etm,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+            'Condition : ',
+            Cdn,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+            'Seller : ',
+            Sid,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+            'AuctionID : ',
+            Aid,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+            'Category : ',
+            Cgp
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('td', null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'td',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            Prc,
+            ' yen'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            Bid,
+            ' bids'
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'td',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            Stt
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            Ext === 'true' ? 'with Auto Extension' : ''
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'td',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            'Now available.'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            'YYYY-MM-DD HH:MM:SS'
           )
         )
       )
@@ -13948,37 +13939,423 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   render() {
-    __WEBPACK_IMPORTED_MODULE_6__utils_webutils__["b" /* log */].trace(`${pspid}> page`, this.state.page);
+    __WEBPACK_IMPORTED_MODULE_5__utils_webutils__["b" /* log */].trace(`${pspid}> page`, this.state.page);
     const page = this.state.page;
     const items = this.state.items ? this.state.items.map(item => this.renderItem(item.Item.ResultSet.Result)) : null;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      null,
+      { className: 'window' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'h2',
-        null,
-        'Hello, World!'
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__components_Button_Button__["a" /* default */],
-        { onClick: this.handleIncrement.bind(this) },
-        '+'
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__components_Button_Button__["a" /* default */],
-        { onClick: this.handleDecrement.bind(this) },
-        '-'
+        'header',
+        { className: 'toolbar toolbar-header' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h1', { className: 'title' }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'toolbar-actions' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            {
+              className: 'btn btn-default' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'icon icon-home icon-text' }),
+            page,
+            ' page'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'btn-group' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              {
+                className: 'btn btn-default',
+                onClick: this.handleIncrement.bind(this) },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'icon icon-left' })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              {
+                className: 'btn btn-default',
+                onClick: this.handleDecrement.bind(this) },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'icon icon-right' })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            {
+              className: 'btn btn-default btn-dropdown pull-right' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'icon icon-megaphone' })
+          )
+        )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        null,
-        page,
-        ' page'
+        { className: 'window-content' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'pane-group' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'pane pane-sm sidebar' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'nav',
+              { className: 'nav-group' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Title'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'form-group' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text',
+                    className: 'form-control',
+                    placeholder: 'Search of items' })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Category'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'select',
+                  { className: 'form-control' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option one'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option two'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option three'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option four'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option five'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option six'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option seven'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option eight'
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Seller'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'select',
+                  { className: 'form-control' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option one'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option two'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option three'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option four'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option five'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option six'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option seven'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option eight'
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'AuctionID'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'select',
+                  { className: 'form-control' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option one'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option two'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option three'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option four'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option five'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option six'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option seven'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    null,
+                    'Option eight'
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Price'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'form-group' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text',
+                    className: 'form-control',
+                    placeholder: 'Highest price' })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'form-group' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text',
+                    className: 'form-control',
+                    placeholder: 'Lowest price' })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Bids'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'checkbox' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox' }),
+                    'bids only.'
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Condition'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'radio' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'radios' }),
+                    'all'
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'radio' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'radios' }),
+                    'new'
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'radio' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'radios' }),
+                    'used'
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'radio' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'radios' }),
+                    'other'
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Status'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'checkbox' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox' }),
+                    'open only.'
+                  )
+                )
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'pane' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'table',
+              { className: 'table-striped' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'thead',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'tr',
+                  null,
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Image'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Detail'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Graph'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Bids'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Status'
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Update'
+                  )
+                )
+              ),
+              items
+            )
+          )
+        )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'ul',
-        null,
-        items
+        'footer',
+        { className: 'toolbar toolbar-footer' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'toolbar-actions' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { className: 'btn btn-form btn-default' },
+            'Reset'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { className: 'btn btn-form btn-default' },
+            'Search'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { className: 'btn btn-primary pull-right' },
+            'Save'
+          )
+        )
       )
     );
   }
@@ -15877,7 +16254,7 @@ const a2 = 'https://auth.login.yahoo.co.jp/yconnect/v2/';
 
 const output = 'json';
 const result = 50;
-const appid = 'dj00aiZpPXRPZGZQSnhNT29WayZzPWNvbnN1bWVyc2VjcmV0Jng9YTA-';
+const appid = "dj00aiZpPXRPZGZQSnhNT29WayZzPWNvbnN1bWVyc2VjcmV0Jng9YTA-";
 const response_type = 'token';
 const redirect_uri = '';
 const scope = 'openid';
@@ -16018,90 +16395,6 @@ const scope = 'openid';
     return this.request('deleteWatchList', { auctionID, output, access_token });
   }
 });
-
-/***/ }),
-/* 86 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_classnames__);
-
-
-
-class Button extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  render() {
-    const className = __WEBPACK_IMPORTED_MODULE_1_classnames___default()({
-      Button: true,
-      'is-large': this.props.size === 'large'
-    });
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'button',
-      {
-        className: className,
-        onClick: this.props.onClick },
-      this.props.children
-    );
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Button;
-
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2016 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames() {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-			return classNames;
-		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-		window.classNames = classNames;
-	}
-})();
 
 /***/ })
 /******/ ]);
