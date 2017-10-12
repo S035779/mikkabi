@@ -12,8 +12,7 @@ const a2 = 'https://auth.login.yahoo.co.jp/yconnect/v2/';
 
 const output = 'json';
 const result = 50;
-const appid
-  = 'dj00aiZpPXRPZGZQSnhNT29WayZzPWNvbnN1bWVyc2VjcmV0Jng9YTA-';
+const appid = process.env.app_id;
 const response_type = 'token';
 const redirect_uri = '';
 const scope = 'openid';

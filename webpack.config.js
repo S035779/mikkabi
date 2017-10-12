@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const config = {
   context: path.resolve(__dirname, 'src'),
@@ -22,6 +23,9 @@ const config = {
     port: 8080,
   },
   devtool: 'source-map',
+  plugins: [
+    new Dotenv()
+  ]
 };
 
 module.exports = config;
