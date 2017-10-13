@@ -5,7 +5,8 @@ import noteStore from '../../stores/noteStore';
 import NoteAction from '../../actions/NoteAction';
 import NoteHeader from '../../components/NoteHeader/NoteHeader';
 import NoteBody from '../../components/NoteBody/NoteBody';
-import NoteSidebar from '../../components/NoteSidebar/NoteSidebar';
+import NoteFooter from '../../components/NoteFooter/NoteFooter';
+import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
 const pspid = `NoteControlerView`;
@@ -24,6 +25,12 @@ class Note extends React.Component {
     NoteAction.increment(query, this.state.page);
   }
 
+  handleHomeClick() {
+    log.info(`${pspid}> Request: handleHomeClick`);
+    NoteAction.increment(query, 0);
+    //NoteAction.incrementCloseWatch(this.state.page);
+  }
+
   handleIncrement() {
     log.info(`${pspid}> Request: handleIncrement`);
     NoteAction.increment(query, this.state.page);
@@ -37,20 +44,17 @@ class Note extends React.Component {
   }
 
   render() {
-    const items = this.state.items;
     const page = this.state.page;
-    return <div>
-      <NoteHeader
-        page={page}
+    const items = this.state.items;
+    const options = this.state.options;
+    return <div className="window">
+      <NoteHeader page={page}
+        onHomeClick={this.handleHomeClick.bind(this)}
         onIncrement={this.handleIncrement.bind(this)}
-        onDecrement={this.handleDecrement.bind(this)}
-      />
-      <div className="window-content">
-        <div className="pane-group">
-        <NoteSidebar />
-        <NoteBody items={items}/>
-        </div>
-      </div>
+        onDecrement={this.handleDecrement.bind(this)} />
+      <Tabs />
+      <NoteBody items={items} options={options} />
+      <NoteFooter />
     </div>;
   }
 }

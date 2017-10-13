@@ -8,8 +8,8 @@ class NoteStore extends ReduceStore {
   getInitialState() {
     return {
       page:     0 
-      , query:  ''
       , items:  null
+      , options: null
       , url:    ''
     };
   }

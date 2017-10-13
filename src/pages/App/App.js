@@ -4,7 +4,6 @@ import { Container } from 'flux/utils';
 import ContainerConverter from '../../FluxContainerConverter';
 import appStore from '../../stores/appStore';
 import GlobalHeader from '../../components/GlobalHeader/GlobalHeader';
-import GlobalFooter from '../../components/GlobalFooter/GlobalFooter';
 import Note from '../../pages/Note/Note';
 import { log } from '../../../utils/webutils';
 
@@ -18,12 +17,11 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="window">
-      <div><GlobalHeader /></div>
+    return <div>
+      <GlobalHeader />
       <Switch>
         <Route path="/" component={Note}/>
       </Switch>
-      <div><GlobalFooter /></div>
     </div>;
   }
 }

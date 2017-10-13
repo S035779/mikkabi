@@ -20,12 +20,10 @@ const scope = 'openid';
 export default {
   request(action, response) {
     log.info(`${pspid}> Request: ${action}`);
-    //log.trace(`${pspid}> Response:`, response);
     switch(action) {
       case 'json/search':
         return new Promise(resolve => {
           JSONP.request(v2 + action, response, ids => {
-            console.log(ids);
             resolve(ids);
           });
         });

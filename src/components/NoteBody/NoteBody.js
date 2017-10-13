@@ -1,4 +1,5 @@
 import React from 'react';
+import NoteSidebar from '../../components/NoteSidebar/NoteSidebar';
 import { log } from '../../../utils/webutils';
 
 const pspid = `NoteBodyView`;
@@ -58,7 +59,12 @@ export default class NoteBody extends React.Component {
       ? this.props.items.map(item =>
           this.renderItem(item.Item.ResultSet.Result))
       : null;
-    return <div className="pane">
+    return <div className="window-content">
+    <div className="pane-group">
+    <NoteSidebar
+      items={this.props.items}
+      options={this.props.options} />
+    <div className="pane">
       <table className="table-striped">
       <thead><tr>
       <th>Image</th>
@@ -70,6 +76,8 @@ export default class NoteBody extends React.Component {
       </tr></thead>
       {items}
       </table>
+    </div>
+    </div>
     </div>;
   }
-}
+};
