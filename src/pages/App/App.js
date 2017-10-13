@@ -91,158 +91,183 @@ class App extends React.Component {
           this.renderItem(item.Item.ResultSet.Result))
       : null;
     return <div className="window">
-      <header className="toolbar toolbar-header">
-      <h1 className="title"></h1>
-        <div className="toolbar-actions">
+    <header className="toolbar toolbar-header">
+    <h1 className="title">WatchNote!</h1>
+      <div className="toolbar-actions">
+        <button
+          className="btn btn-default">
+          <span className="icon icon-home icon-text"></span>
+          {page} page
+        </button>
+        <div className="btn-group">
+        <button 
+          className="btn btn-default"
+          onClick={this.handleIncrement.bind(this)}>
+          <span className="icon icon-left"></span>
+        </button>
+        <button
+          className="btn btn-default"
+          onClick={this.handleDecrement.bind(this)}>
+          <span className="icon icon-right"></span>
+        </button>
+        </div>
+        <button
+          className="btn btn-default btn-dropdown pull-right">
+          <span className="icon icon-megaphone"></span>
+        </button>
+      </div>
+    </header>
+    <div className="tab-group">
+      <div className="tab-item active">
+      Search of items
+      </div>
+      <div className="tab-item">
+      Available watch-items
+      </div>
+      <div className="tab-item">
+      Completed watch-items
+      </div>
+    </div>
+    <div className="window-content">
+    <div className="pane-group">
+    <div className="pane pane-sm sidebar">
+      <nav className="nav-group">
+        <h5 className="nav-group-title">Title</h5>
+        <span className="nav-group-item">
+          <div className="form-group">
+          <input type="text"
+            className="form-control"
+            placeholder="Search of items" />
+          </div>
+        </span>
+        <h5 className="nav-group-title">Category</h5>
+        <span className="nav-group-item">
+          <select className="form-control">
+          <option>Option one</option>
+          <option>Option two</option>
+          <option>Option three</option>
+          <option>Option four</option>
+          <option>Option five</option>
+          <option>Option six</option>
+          <option>Option seven</option>
+          <option>Option eight</option>
+          </select>
+        </span>
+        <h5 className="nav-group-title">Seller</h5>
+        <span className="nav-group-item">
+          <select className="form-control">
+          <option>Option one</option>
+          <option>Option two</option>
+          <option>Option three</option>
+          <option>Option four</option>
+          <option>Option five</option>
+          <option>Option six</option>
+          <option>Option seven</option>
+          <option>Option eight</option>
+          </select>
+        </span>
+        <h5 className="nav-group-title">AuctionID</h5>
+        <span className="nav-group-item">
+          <select className="form-control">
+          <option>Option one</option>
+          <option>Option two</option>
+          <option>Option three</option>
+          <option>Option four</option>
+          <option>Option five</option>
+          <option>Option six</option>
+          <option>Option seven</option>
+          <option>Option eight</option>
+          </select>
+        </span>
+        <h5 className="nav-group-title">Price</h5>
+        <span className="nav-group-item">
+          <div className="form-group">
+          <input type="text"
+            className="form-control"
+            placeholder="Highest price" />
+          </div>
+        </span>
+        <span className="nav-group-item">
+          <div className="form-group">
+          <input type="text"
+            className="form-control"
+            placeholder="Lowest price" />
+          </div>
+        </span>
+        <h5 className="nav-group-title">Bids</h5>
+        <span className="nav-group-item">
+          <div className="checkbox">
+          <label><input type="checkbox" />bids only.
+          </label>
+          </div>
+        </span>
+        <h5 className="nav-group-title">Condition</h5>
+        <span className="nav-group-item">
+          <div className="radio">
+          <label><input type="radio" name="radios" />all
+          </label>
+          </div>
+          <div className="radio">
+          <label><input type="radio" name="radios" />new
+          </label>
+          </div>
+          <div className="radio">
+          <label><input type="radio" name="radios" />used
+          </label>
+          </div>
+          <div className="radio">
+          <label><input type="radio" name="radios" />other
+          </label>
+          </div>
+        </span>
+        <h5 className="nav-group-title">Status</h5>
+        <span className="nav-group-item">
+          <div className="checkbox">
+          <label><input type="checkbox" />open only.
+          </label>
+          </div>
+        </span>
+        <h5 className="nav-group-title">Submit</h5>
+        <span className="nav-group-item">
+          <div className="form-actions">
           <button
-            className="btn btn-default">
-            <span className="icon icon-home icon-text"></span>
-            {page} page
-          </button>
-          <div className="btn-group">
-          <button 
-            className="btn btn-default"
-            onClick={this.handleIncrement.bind(this)}>
-            <span className="icon icon-left"></span>
-          </button>
-          <button
-            className="btn btn-default"
-            onClick={this.handleDecrement.bind(this)}>
-            <span className="icon icon-right"></span>
+            className="btn btn-form btn-default">Resets
           </button>
           </div>
+        </span>
+        <span className="nav-group-item">
+          <div className="form-actions">
           <button
-            className="btn btn-default btn-dropdown pull-right">
-            <span className="icon icon-megaphone"></span>
+            className="btn btn-form btn-primary">Search
           </button>
-        </div>
-      </header>
-      <div className="window-content">
-      <div className="pane-group">
-      <div className="pane pane-sm sidebar">
-        <nav className="nav-group">
-          <h5 className="nav-group-title">Title</h5>
-          <span className="nav-group-item">
-            <div className="form-group">
-            <input type="text"
-              className="form-control"
-              placeholder="Search of items" />
-            </div>
-          </span>
-          <h5 className="nav-group-title">Category</h5>
-          <span className="nav-group-item">
-            <select className="form-control">
-            <option>Option one</option>
-            <option>Option two</option>
-            <option>Option three</option>
-            <option>Option four</option>
-            <option>Option five</option>
-            <option>Option six</option>
-            <option>Option seven</option>
-            <option>Option eight</option>
-            </select>
-          </span>
-          <h5 className="nav-group-title">Seller</h5>
-          <span className="nav-group-item">
-            <select className="form-control">
-            <option>Option one</option>
-            <option>Option two</option>
-            <option>Option three</option>
-            <option>Option four</option>
-            <option>Option five</option>
-            <option>Option six</option>
-            <option>Option seven</option>
-            <option>Option eight</option>
-            </select>
-          </span>
-          <h5 className="nav-group-title">AuctionID</h5>
-          <span className="nav-group-item">
-            <select className="form-control">
-            <option>Option one</option>
-            <option>Option two</option>
-            <option>Option three</option>
-            <option>Option four</option>
-            <option>Option five</option>
-            <option>Option six</option>
-            <option>Option seven</option>
-            <option>Option eight</option>
-            </select>
-          </span>
-          <h5 className="nav-group-title">Price</h5>
-          <span className="nav-group-item">
-            <div className="form-group">
-            <input type="text"
-              className="form-control"
-              placeholder="Highest price" />
-            </div>
-            <div className="form-group">
-            <input type="text"
-              className="form-control"
-              placeholder="Lowest price" />
-            </div>
-          </span>
-          <h5 className="nav-group-title">Bids</h5>
-          <span className="nav-group-item">
-            <div className="checkbox">
-            <label><input type="checkbox" />bids only.
-            </label>
-            </div>
-          </span>
-          <h5 className="nav-group-title">Condition</h5>
-          <span className="nav-group-item">
-            <div className="radio">
-            <label><input type="radio" name="radios" />all
-            </label>
-            </div>
-            <div className="radio">
-            <label><input type="radio" name="radios" />new
-            </label>
-            </div>
-            <div className="radio">
-            <label><input type="radio" name="radios" />used
-            </label>
-            </div>
-            <div className="radio">
-            <label><input type="radio" name="radios" />other
-            </label>
-            </div>
-          </span>
-          <h5 className="nav-group-title">Status</h5>
-          <span className="nav-group-item">
-            <div className="checkbox">
-            <label>
-            <input type="checkbox" />open only.
-            </label>
-            </div>
-          </span>
-        </nav>
+          </div>
+        </span>
+      </nav>
+    </div>
+    <div className="pane">
+      <table className="table-striped">
+      <thead><tr>
+      <th>Image</th>
+      <th>Detail</th>
+      <th>Chart</th>
+      <th>Bids</th>
+      <th>Status</th>
+      <th>Update</th>
+      </tr></thead>
+      {items}
+      </table>
+    </div>
+    </div>
+    </div>
+    <footer className="toolbar toolbar-footer">
+      <div className="toolbar-actions">
+      <button className="btn btn-default">Cancel
+      </button>
+      <button className="btn btn-primary pull-right">Save
+      </button>
       </div>
-      <div className="pane">
-        <table className="table-striped">
-        <thead><tr>
-        <th>Image</th>
-        <th>Detail</th>
-        <th>Graph</th>
-        <th>Bids</th>
-        <th>Status</th>
-        <th>Update</th>
-        </tr></thead>
-        {items}
-        </table>
-      </div>
-      </div>
-      </div>
-      <footer className="toolbar toolbar-footer">
-        <div className="toolbar-actions">
-        <button className="btn btn-form btn-default">Reset
-        </button>
-        <button className="btn btn-form btn-default">Search
-        </button>
-        <button className="btn btn-primary pull-right">Save
-        </button>
-        </div>
-      </footer>
-      </div>;
+    </footer>
+    </div>;
   }
 }
 export default Container.create(ContainerConverter.convert(App));

@@ -13948,7 +13948,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'header',
         { className: 'toolbar toolbar-header' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h1', { className: 'title' }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'h1',
+          { className: 'title' },
+          'WatchNote!'
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'toolbar-actions' },
@@ -13984,6 +13988,25 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
               className: 'btn btn-default btn-dropdown pull-right' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'icon icon-megaphone' })
           )
+        )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'tab-group' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'tab-item active' },
+          'Search of items'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'tab-item' },
+          'Available watch-items'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'tab-item' },
+          'Completed watch-items'
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14187,7 +14210,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text',
                     className: 'form-control',
                     placeholder: 'Highest price' })
-                ),
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'form-group' },
@@ -14282,6 +14309,39 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     'open only.'
                   )
                 )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'nav-group-title' },
+                'Submit'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'form-actions' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    {
+                      className: 'btn btn-form btn-default' },
+                    'Resets'
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'nav-group-item' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'form-actions' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    {
+                      className: 'btn btn-form btn-primary' },
+                    'Search'
+                  )
+                )
               )
             )
           ),
@@ -14310,7 +14370,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'th',
                     null,
-                    'Graph'
+                    'Chart'
                   ),
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'th',
@@ -14342,13 +14402,8 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
           { className: 'toolbar-actions' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'button',
-            { className: 'btn btn-form btn-default' },
-            'Reset'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
-            { className: 'btn btn-form btn-default' },
-            'Search'
+            { className: 'btn btn-default' },
+            'Cancel'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'button',
@@ -16254,7 +16309,7 @@ const a2 = 'https://auth.login.yahoo.co.jp/yconnect/v2/';
 
 const output = 'json';
 const result = 50;
-const appid = "dj00aiZpPXRPZGZQSnhNT29WayZzPWNvbnN1bWVyc2VjcmV0Jng9YTA-";
+const appid = "dj00aiZpPTBoc0JrMFFVN2U5ViZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-";
 const response_type = 'token';
 const redirect_uri = '';
 const scope = 'openid';
