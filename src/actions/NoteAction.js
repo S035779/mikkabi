@@ -2,7 +2,7 @@ import { dispatch } from '../dispatcher';
 import NoteApiClient from '../services/NoteApiClient';
 import { spn, log } from '../../utils/webutils';
 
-const pspid = `AppAction`;
+const pspid = `NoteAction`;
 
 export default {
   increment(query, page) {
