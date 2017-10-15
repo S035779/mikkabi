@@ -6,9 +6,9 @@ import { log } from '../../../utils/webutils';
 const pspid = `NoteTableView`;
 
 export default class NoteTable extends React.Component {
-  renderStatus(s) {
+  renderStatus(status) {
     let styles;
-    switch(s) {
+    switch(status) {
       case 0:
         styles = { fontWeight:'bold', color: 'blue' };
         return <div style={styles}>Now available.</div>;
@@ -22,24 +22,20 @@ export default class NoteTable extends React.Component {
   };
 
   renderExtension() {
-    return <div>with<br />Auto Extension</div>;
+    return <div>( Auto Extension )</div>;
   }
 
   renderBids(bids) {
     if(!bids) return null;
-    let points = new Array();
-    if(Array.isArray(bids)) {
-      points = bids.map(obj => parseInt(obj.Price, 10))
-    } else{
-      points[0] = parseInt(bids.Price, 10);
-    }
+    const points = Array.isArray(bids)
+      ? bids.map(obj => parseInt(obj.Price, 10))
+      : [ parseInt(bids.Price, 10) ];
     return <Sparkline points={points} />
   }
   
   renderItem(obj) {
     const item = obj.Item.ResultSet.Result;
     const bids = obj.Bids.ResultSet.Result;
-
     const Img = item.Img.Image1 ? item.Img.Image1 : '';
     const Aid = item.AuctionID;
     const Sid = item.Seller.Id;
@@ -59,13 +55,9 @@ export default class NoteTable extends React.Component {
     const Upd = std.getLocalTimeStamp(Date.now());
 
     return <tbody key={Aid}><tr>
+      <td><img src={Img} width='128' height='128' /></td>
       <td>
-        <img src={Img} width='128' height='128' />
-      </td>
-      <td>
-        <span>
-        <a href={Url} target='_blank'>{Ttl}</a><br />
-        </span>
+        <span><a href={Url} target='_blank'>{Ttl}</a><br /></span>
         <span>
         Bid period : {Stm} ~ {Etm}<br />
         Condition : {Cdn}<br />
@@ -74,22 +66,12 @@ export default class NoteTable extends React.Component {
         Category : {Cgp}
         </span>
       </td>
-      <td>
-        {Cht}
+      <td>{Cht}</td>
+      <td><span>{Prc} yen</span><br /><span>({Bid} bids)</span>
       </td>
-      <td>
-        <span>{Prc} yen</span><br />
-        <span>({Bid} bids)</span>
-      </td>
-      <td>
-        <span>{Stt}</span><br />
-        <span>{Ext}</span>
-      </td>
-      <td>
-        <span>{stt}</span><br />
-        <span>{Upd}</span>
-      </td>
-      </tr></tbody>;
+      <td><span>{Stt}</span><br /><span>{Ext}</span></td>
+      <td><span>{stt}</span><br /><span>{Upd}</span></td>
+    </tr></tbody>;
   }
 
   render() {

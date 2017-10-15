@@ -1,6 +1,6 @@
 import { M, log, spn } from '../../utils/webutils';
 
-log.config('console', 'basic', 'ALL', 'note-client');
+log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
 
 const pspid = `NoteAPIClient`;
@@ -10,12 +10,8 @@ const v1 = 'https://auctions.yahooapis.jp/AuctionWebService/V1/';
 const v2 = 'https://auctions.yahooapis.jp/AuctionWebService/V2/';
 const a2 = 'https://auth.login.yahoo.co.jp/yconnect/v2/';
 
-const output = 'json';
-const result = 50;
 const appid = process.env.app_id;
-const response_type = 'token';
-const redirect_uri = '';
-const scope = 'openid';
+const redirect_uri = process.env.redirect_uri;;
 
 export default {
   request(action, response) {
@@ -82,17 +78,54 @@ export default {
         });
     }
   },
-  fetchIds(query, page) {
+  fetchIds(options, page) {
     return this.request('json/search'
-      , { query, appid, page, output });
+      , this.helperOptions({ appid, page, output: 'json' }
+      , options));
+  },
+  helperOptions(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const _r = { new: 1, used: 2, other: 0 };
+    const options = {
+      appid:        _o.appid
+      , query:      ''
+      , output:     _o.output
+      , page:       _o.page ? _o.page : 1
+      , type:       'all'
+      , order:      'a'
+      , store:      0
+      , gift_icon:  0
+      , adf:        1
+      , f:          '0x2'
+    };
+    if(_p.searchString) {
+      options['query']      = _p.searchString;
+    }
+    if(_p.hightPrice)
+      options['aucmaxprice'] = Number(_p.hightPrice);
+    if(_p.lowestPrice)
+      options['aucminprice'] = Number(_p.lowestPrice);
+    if(_p.bids) {
+      options['sort']        = 'bids';
+    } else {
+      options['sort']        = 'score';
+      options['ranking']     = 'current';
+    }
+    if(_p.condition && _p.condition !== 'all')
+      options['item_status'] = Number(_r[_p.condition]);
+    if(_p.seller && _p.seller.length)
+      options['seller']      = _p.seller.join();
+    log.trace(`${pspid}>`, `fetchIds options:`, options);
+    return options;
   },
   fetchItem(auctionID) {
     return this.request('json/auctionItem'
-      , { auctionID, appid, output });
+      , { auctionID, appid, output: 'json' });
   },
   fetchBids(auctionID) {
     return this.request('BidHistory'
-      , { auctionID, appid, output });
+      , { auctionID, appid, output: 'json' });
   },
   newIds(obj) {
     return R.map(item => item.AuctionID
@@ -116,9 +149,9 @@ export default {
   isBids(o) {
     return o.hasOwnProperty('Bids');
   },
-  fetchItems(query, page) {
+  fetchItems(options, page) {
     spn.spin();
-    return this.fetchIds(query, page)
+    return this.fetchIds(options, page)
       //.then(R.tap(this.traceLog.bind(this)))
       .then(this.newIds.bind(this))
       .then(M.fork(R.concat
@@ -135,14 +168,14 @@ export default {
   },
   fetchAuth() {
     return this.request('authorization'
-      , { response_type
+      , { response_type: 'token'
         , client_id: appid
         , redirect_uri
-        , scope });
+        , scope: 'openid' });
   },
   fetchCloseWatchIds(start, access_token) {
     return this.request('closeWatchList'
-      , { start, result, output, access_token });
+      , { start, output: 'json', access_token });
   },
   fetchCloseWatch(start) {
     spn.spin();
@@ -161,13 +194,17 @@ export default {
         , R.filter(this.isBids.bind(this))))
       .catch(this.errorLog.bind(this));
   },
-  fetchOpenWatchIds(access_token, start) {
+  fetchOpenWatchIds(start, access_token) {
     return this.request('openWatchList'
-      , { start, result, output, access_token });
+      , { start, output: 'json', access_token });
   },
-  fetchOpenWatch(query, page) {
+  fetchOpenWatch(start) {
     spn.spin();
-    return this.fetchOpenWatchIds(query, page)
+    const newIds = R.curry(this.fetchOpenWatchIds)(start);
+    return this.fetchConfig()
+      .then(R.tap(this.traceLog.bind(this)))
+      .then(this.fetchAuth)
+      .then(newIds)
       .then(this.newIds.bind(this))
       .then(M.fork(R.concat
         , R.map(this.fetchItem.bind(this))
@@ -182,11 +219,11 @@ export default {
   createWatch(access_token, auctionID) {
     spn.spin();
     return this.request('watchList'
-      , { auctionID, output, access_token });
+      , { auctionID, output: 'json', access_token });
   },
   deleteWatch(access_token, auctionID) {
     spn.spin();
     return this.request('deleteWatchList'
-      , { auctionID, output, access_token });
+      , { auctionID, output: 'json', access_token });
   },
 }

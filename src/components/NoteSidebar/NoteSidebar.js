@@ -8,18 +8,21 @@ const pspid = `NoteSidebarView`;
 export default class NoteSidebar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props.options)
+    this.state = Object.assign({}, props.options);
   }
 
-  handleClickSearch(e) {
-    e.prevent.Default();
-    this.props.onSearch(this.state)
+  handleChangeSearch(e) {
+    log.info(`${pspid}> Request: handleChangeSearch`);
+    log.trace(`${pspid}>`, this.state);
+    e.preventDefault();
+    this.props.onChangeSearch(this.state)
   }
 
-  handleClickReset() {
+  handleChangeReset() {
+    log.info(`${pspid}> Request: handleChangeReset`);
+    log.trace(`${pspid}>`, this.state);
     this.setState({
-      searchString: ''
-      , highestPrice: ''
+      highestPrice: ''
       , lowestPrice: ''
       , bids: false
       , condition: 'all'
@@ -76,12 +79,12 @@ export default class NoteSidebar extends React.Component {
   }
 
   render() {
-    const optAuIDs = this.renderOption(this.props.items
-      , 'AuctionID');
-    const optPaths = this.renderOption(this.props.items
-      , 'CategoryPath');
-    const optSelrs = this.renderOption(this.props.items
-      , 'Seller', 'Id');
+    const optPaths =
+      this.renderOption(this.props.items, 'CategoryPath');
+    const optSelrs =
+      this.renderOption(this.props.items, 'Seller', 'Id');
+    const optAuIDs =
+      this.renderOption(this.props.items, 'AuctionID');
     return <div className="pane pane-sm sidebar">
     <nav className="nav-group">
       <h5 className="nav-group-title">Title</h5>
@@ -90,9 +93,19 @@ export default class NoteSidebar extends React.Component {
         <input type="text"
           className="form-control"
           placeholder="Search of items"
+          value={this.state.searchString}
           onChange={
-            this.handleChangeText.bind(this, 'searchString')
-          }/>
+            this.handleChangeText.bind(this, 'searchString')} />
+        </div>
+      </span>
+      <span className="nav-group-item">
+        <div className="form-actions">
+        <button className="btn btn-mini btn-default"
+          onClick={this.handleChangeReset.bind(this)}>Reset
+        </button>
+        <button className="btn btn-mini btn-primary"
+          onClick={this.handleChangeSearch.bind(this)}>Search
+        </button>
         </div>
       </span>
       <h5 className="nav-group-title">Category</h5>
@@ -101,10 +114,8 @@ export default class NoteSidebar extends React.Component {
           multiple={true}
           value={this.state.categoryPath}
           onChange={
-            this.handleChangeSelect.bind(this, 'categoryPath')
-          }>
-          {optPaths}
-        </select>
+            this.handleChangeSelect.bind(this, 'categoryPath')}
+        >{optPaths}</select>
       </span>
       <h5 className="nav-group-title">Seller</h5>
       <span className="nav-group-item">
@@ -112,9 +123,7 @@ export default class NoteSidebar extends React.Component {
           multiple={true}
           value={this.state.seller}
           onChange={this.handleChangeSelect.bind(this, 'seller')}
-        >
-          {optSelrs}
-        </select>
+        >{optSelrs}</select>
       </span>
       <h5 className="nav-group-title">AuctionID</h5>
       <span className="nav-group-item">
@@ -122,10 +131,8 @@ export default class NoteSidebar extends React.Component {
           multiple={true}
           value={this.state.AuctionID}
           onChange={
-            this.handleChangeSelect.bind(this, 'AuctionID')
-          }>
-          {optAuIDs}
-        </select>
+            this.handleChangeSelect.bind(this, 'AuctionID')}
+        >{optAuIDs}</select>
       </span>
       <h5 className="nav-group-title">Price</h5>
       <span className="nav-group-item">
@@ -135,8 +142,7 @@ export default class NoteSidebar extends React.Component {
           value={this.state.highestPrice} 
           placeholder="Highest price" 
           onChange={
-            this.handleChangeText.bind(this, 'highestPrice')
-          } />
+            this.handleChangeText.bind(this, 'highestPrice')} />
         </div>
       </span>
       <span className="nav-group-item">
@@ -146,36 +152,31 @@ export default class NoteSidebar extends React.Component {
           value={this.state.lowestPrice} 
           placeholder="Lowest price" 
           onChange={
-            this.handleChangeText.bind(this, 'lowestPrice')
-          } />
+            this.handleChangeText.bind(this, 'lowestPrice')} />
         </div>
       </span>
       <h5 className="nav-group-title">Bids</h5>
       <span className="nav-group-item">
         <div className="checkbox">
         <label><input type="checkbox" 
-        value="bids" 
-        checked={this.state.bids} 
-        onChange={
-          this.handleChangeCheckbox.bind(this, 'bids')
-        } />bids only.
-        </label>
+          value="bids" 
+          checked={this.state.bids} 
+          onChange={
+            this.handleChangeCheckbox.bind(this, 'bids')} />
+        bids only.</label>
         </div>
       </span>
       <h5 className="nav-group-title">Condition</h5>
       <span className="nav-group-item">
-        <div className="radio">
         <Radio name="condition"
           value={this.state.condition}
           onChange={
-            this.handleChangeRadio.bind(this, 'condition')
-          }>
+            this.handleChangeRadio.bind(this, 'condition')} >
           <option value="all">all</option>
           <option value="new">new</option>
           <option value="used">used</option>
           <option value="other">other</option>
         </Radio>
-        </div>
       </span>
       <h5 className="nav-group-title">Status</h5>
       <span className="nav-group-item">
@@ -184,21 +185,9 @@ export default class NoteSidebar extends React.Component {
           value="status" 
           checked={this.state.status} 
           onChange={
-            this.handleChangeCheckbox.bind(this, 'status')
-          } />open only.
-        </label>
+            this.handleChangeCheckbox.bind(this, 'status')} />
+        open only.</label>
         </div>
-      </span>
-      <h5 className="nav-group-title">Submit</h5>
-      <span className="nav-group-item">
-      <button className="btn btn-form btn-default">
-      Reset
-      </button>
-      </span>
-      <span className="nav-group-item">
-      <button className="btn btn-form btn-primary">
-      Search
-      </button>
       </span>
     </nav>
     </div>;

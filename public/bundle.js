@@ -17321,15 +17321,16 @@ const pspid = `NoteBodyView`;
 
 class NoteBody extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
+    const items = this.props.items;
+    const options = this.props.options;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'window-content' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'pane-group' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_NoteSidebar_NoteSidebar__["a" /* default */], { items: this.props.items,
-          options: this.props.options }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_NoteTable_NoteTable__["a" /* default */], { items: this.props.items })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_NoteSidebar_NoteSidebar__["a" /* default */], { items: items, options: options }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_NoteTable_NoteTable__["a" /* default */], { items: items })
       )
     );
   }
@@ -17358,26 +17359,26 @@ const pspid = `NoteSidebarView`;
 class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props.options);
+    this.state = { options: props.options };
   }
 
   handleClickSearch(e) {
     e.prevent.Default();
-    this.props.onSearch(this.state);
+    this.props.onSearch(this.state.options);
   }
 
   handleClickReset() {
-    this.setState({
-      searchString: '',
-      highestPrice: '',
-      lowestPrice: '',
-      bids: false,
-      condition: 'all',
-      status: false,
-      AuctionID: [],
-      categoryPath: [],
-      seller: []
-    });
+    this.setState({ options: {
+        searchString: '',
+        highestPrice: '',
+        lowestPrice: '',
+        bids: false,
+        condition: 'all',
+        status: false,
+        AuctionID: [],
+        categoryPath: [],
+        seller: []
+      } });
   }
 
   handleChangeText(name, e) {
@@ -17428,9 +17429,9 @@ class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
   }
 
   render() {
-    const optAuIDs = this.renderOption(this.props.items, 'AuctionID');
     const optPaths = this.renderOption(this.props.items, 'CategoryPath');
     const optSelrs = this.renderOption(this.props.items, 'Seller', 'Id');
+    const optAuIDs = this.renderOption(this.props.items, 'AuctionID');
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'pane pane-sm sidebar' },
@@ -17455,6 +17456,24 @@ class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'span',
+          { className: 'nav-group-item' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'form-actions' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              { className: 'btn btn-mini btn-default' },
+              'Reset'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              { className: 'btn btn-mini btn-primary' },
+              'Search'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h5',
           { className: 'nav-group-title' },
           'Category'
@@ -17467,7 +17486,8 @@ class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
             { className: 'form-control',
               multiple: true,
               value: this.state.categoryPath,
-              onChange: this.handleChangeSelect.bind(this, 'categoryPath') },
+              onChange: this.handleChangeSelect.bind(this, 'categoryPath')
+            },
             optPaths
           )
         ),
@@ -17502,7 +17522,8 @@ class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
             { className: 'form-control',
               multiple: true,
               value: this.state.AuctionID,
-              onChange: this.handleChangeSelect.bind(this, 'AuctionID') },
+              onChange: this.handleChangeSelect.bind(this, 'AuctionID')
+            },
             optAuIDs
           )
         ),
@@ -17568,33 +17589,29 @@ class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
           'span',
           { className: 'nav-group-item' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'radio' },
+            __WEBPACK_IMPORTED_MODULE_1__Radio_Radio__["a" /* default */],
+            { name: 'condition',
+              value: this.state.condition,
+              onChange: this.handleChangeRadio.bind(this, 'condition') },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_1__Radio_Radio__["a" /* default */],
-              { name: 'condition',
-                value: this.state.condition,
-                onChange: this.handleChangeRadio.bind(this, 'condition') },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'option',
-                { value: 'all' },
-                'all'
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'option',
-                { value: 'new' },
-                'new'
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'option',
-                { value: 'used' },
-                'used'
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'option',
-                { value: 'other' },
-                'other'
-              )
+              'option',
+              { value: 'all' },
+              'all'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'option',
+              { value: 'new' },
+              'new'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'option',
+              { value: 'used' },
+              'used'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'option',
+              { value: 'other' },
+              'other'
             )
           )
         ),
@@ -17619,29 +17636,6 @@ class NoteSidebar extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
               'open only.'
             )
           )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'h5',
-          { className: 'nav-group-title' },
-          'Submit'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'nav-group-item' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
-            { className: 'btn btn-form btn-default' },
-            'Reset'
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'nav-group-item' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
-            { className: 'btn btn-form btn-primary' },
-            'Search'
-          )
         )
       )
     );
@@ -17663,7 +17657,7 @@ class Radio extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.defaultValue
+      value: props.defaultValue
     };
   }
 
@@ -17680,15 +17674,18 @@ class Radio extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     const value = this.props.value || this.state.value;
     let children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.map(this.props.children, function (child, i) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "label",
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-          type: "radio",
-          name: this.props.name,
-          value: child.props.value,
-          checked: child.props.value === value,
-          onChange: this.handleChange.bind(this) }),
-        child.props.children
+        "div",
+        { className: "radio" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "label",
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "radio",
+            name: this.props.name,
+            value: child.props.value,
+            checked: child.props.value === value,
+            onChange: this.handleChange.bind(this) }),
+          child.props.children
+        )
       );
     }.bind(this));
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17720,9 +17717,9 @@ class Radio extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 const pspid = `NoteTableView`;
 
 class NoteTable extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  renderStatus(s) {
+  renderStatus(status) {
     let styles;
-    switch (s) {
+    switch (status) {
       case 0:
         styles = { fontWeight: 'bold', color: 'blue' };
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17751,27 +17748,19 @@ class NoteTable extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       null,
-      'with',
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-      'Auto Extension'
+      '( Auto Extension )'
     );
   }
 
   renderBids(bids) {
     if (!bids) return null;
-    let points = new Array();
-    if (Array.isArray(bids)) {
-      points = bids.map(obj => parseInt(obj.Price, 10));
-    } else {
-      points[0] = parseInt(bids.Price, 10);
-    }
+    const points = Array.isArray(bids) ? bids.map(obj => parseInt(obj.Price, 10)) : [parseInt(bids.Price, 10)];
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Sparkline_Sparkline__["a" /* default */], { points: points });
   }
 
   renderItem(obj) {
     const item = obj.Item.ResultSet.Result;
     const bids = obj.Bids.ResultSet.Result;
-
     const Img = item.Img.Image1 ? item.Img.Image1 : '';
     const Aid = item.AuctionID;
     const Sid = item.Seller.Id;

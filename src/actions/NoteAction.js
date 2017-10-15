@@ -5,18 +5,18 @@ import { spn, log } from '../../utils/webutils';
 const pspid = `NoteAction`;
 
 export default {
-  increment(query, page) {
+  increment(options, page) {
     page = ++page > 0 ? page : 1;
-    return NoteApiClient.fetchItems(query, page)
+    return NoteApiClient.fetchItems(options, page)
     .then(items => {
       dispatch({ type: 'item/fetch', items, page });
       log.info(`${pspid}> Response: item/fetch`);
       spn.stop();
     });
   },
-  decrement(query, page) {
+  decrement(options, page) {
     page = --page > 0 ? page : 1;
-    return NoteApiClient.fetchItems(query, page)
+    return NoteApiClient.fetchItems(options, page)
     .then(items => {
       dispatch({ type: 'item/fetch', items, page });
       log.info(`${pspid}> Response: item/fetch`);

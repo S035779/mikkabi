@@ -15,9 +15,9 @@ export default class NoteHeader extends React.Component {
     this.props.onDecrement();
   }
 
-  handleHomeClick() {
-    log.info(`${pspid}> Request: handleHomeClick`);
-    this.props.onHomeClick();
+  handleChangeHome() {
+    log.info(`${pspid}> Request: handleChangeHome`);
+    this.props.onChangeHome();
   }
 
   render() {
@@ -27,7 +27,7 @@ export default class NoteHeader extends React.Component {
       <div className="toolbar-actions">
         <button
           className="btn btn-default"
-          onClick={this.handleHomeClick.bind(this)}>
+          onClick={this.handleChangeHome.bind(this)}>
           <span className="icon icon-home icon-text"></span>
           {page} page
         </button>

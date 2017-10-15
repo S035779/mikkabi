@@ -9,7 +9,16 @@ class NoteStore extends ReduceStore {
     return {
       page:     0 
       , items:  null
-      , options: null
+      , options: {
+        searchString: ''
+        , highestPrice: ''
+        , lowestPrice: ''
+        , bids: false
+        , condition: 'all'
+        , status: false
+        , AuctionID: []
+        , categoryPath: []
+        , seller: [] }
       , url:    ''
     };
   }
