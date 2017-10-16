@@ -13,20 +13,22 @@ export default class NoteSidebar extends React.Component {
   }
 
   handleChangeSearch(e) {
-    log.info(`${pspid}> Request: handleChangeSearch`);
+    log.info(`${pspid}>`, 'Request: handleChangeSearch');
+    log.trace(`${pspid}>`, this.state);
     NoteAction.increment(this.state, 0);
     e.preventDefault();
   }
 
   handleChangeReset() {
-    log.info(`${pspid}> Request: handleChangeReset`);
+    log.info(`${pspid}>`, 'Request: handleChangeReset');
+    log.trace(`${pspid}>`, this.state);
     this.setState({
       highestPrice: ''
       , lowestPrice: ''
-      , bids: false
-      , condition: 'all'
-      , status: false
-      , AuctionID: []
+      , shipping: 'ALL'
+      , condition: 'ALL'
+      , status: 'ALL'
+      , itemId: []
       , categoryPath: []
       , seller: []
     });
@@ -65,10 +67,9 @@ export default class NoteSidebar extends React.Component {
     if(!objs) return null;
     const len = arguments.length;
     const items = objs.map(obj => {
-      if(!obj.Item.hasOwnProperty('ResultSet')) return null;
       return (len === 2)
-        ? obj.Item.ResultSet.Result[prop1]
-        : obj.Item.ResultSet.Result[prop1][prop2];
+        ? obj[prop1][0]
+        : obj[prop1][0][prop2][0];
     })
     const opts = std.dst(items);
     return opts.map((opt, idx) => {
@@ -78,12 +79,12 @@ export default class NoteSidebar extends React.Component {
   }
 
   render() {
-    const optPaths =
-      this.renderOption(this.props.items, 'CategoryPath');
-    const optSelrs =
-      this.renderOption(this.props.items, 'Seller', 'Id');
-    const optAuIDs =
-      this.renderOption(this.props.items, 'AuctionID');
+    const optPaths = this.renderOption(this.props.items
+      , 'primaryCategory', 'categoryName');
+    const optSelrs = this.renderOption(this.props.items
+      , 'sellerInfo', 'sellerUserName');
+    const optAuIDs = this.renderOption(this.props.items
+      , 'itemId');
     return <div className="pane pane-sm sidebar">
     <nav className="nav-group">
       <h5 className="nav-group-title">Title</h5>
@@ -124,13 +125,13 @@ export default class NoteSidebar extends React.Component {
           onChange={this.handleChangeSelect.bind(this, 'seller')}
         >{optSelrs}</select>
       </span>
-      <h5 className="nav-group-title">AuctionID</h5>
+      <h5 className="nav-group-title">ItemID</h5>
       <span className="nav-group-item">
         <select className="form-control"
           multiple={true}
-          value={this.state.AuctionID}
+          value={this.state.itemId}
           onChange={
-            this.handleChangeSelect.bind(this, 'AuctionID')}
+            this.handleChangeSelect.bind(this, 'itemId')}
         >{optAuIDs}</select>
       </span>
       <h5 className="nav-group-title">Price</h5>
@@ -154,39 +155,87 @@ export default class NoteSidebar extends React.Component {
             this.handleChangeText.bind(this, 'lowestPrice')} />
         </div>
       </span>
-      <h5 className="nav-group-title">Bids</h5>
+      <h5 className="nav-group-title">Shipping</h5>
       <span className="nav-group-item">
-        <div className="checkbox">
-        <label><input type="checkbox" 
-          value="bids" 
-          checked={this.state.bids}
+        <select className="form-control"
+          multiple={false}
+          value={this.state.shipping}
           onChange={
-            this.handleChangeCheckbox.bind(this, 'bids')} />
-        bids only.</label>
-        </div>
+            this.handleChangeSelect.bind(this, 'shipping')
+          } >
+          <option value="ALL">ALL</option>
+          <option value="Americas">Americas</option>
+          <option value="Asia">Asia</option>
+          <option value="AT">Austria</option>
+          <option value="AU">Australia</option>
+          <option value="BE">Belgium</option>
+          <option value="CA">Canada</option>
+          <option value="CH">Switzerland</option>
+          <option value="CN">China</option>
+          <option value="DE">Germany</option>
+          <option value="ES">Spain</option>
+          <option value="Europe">Europe</option>
+          <option value="EuropeanUnion">EuropeanUnion</option>
+          <option value="FR">France</option>
+          <option value="GB">United Kingdom</option>
+          <option value="Greater China">Greater China</option>
+          <option value="HK">Hong Kong</option>
+          <option value="IE">Ireland</option>
+          <option value="IN">India</option>
+          <option value="IT">Italy</option>
+          <option value="JP">Japan</option>
+          <option value="MX">Mexico</option>
+          <option value="NL">Netherlands</option>
+          <option value="None">No shipping.</option>
+          <option value="NZ">New Zealand</option>
+          <option value="Rest of Asia">Rest of Asia</option>
+          <option value="TW">Taiwan</option>
+          <option value="US">United States</option>
+          <option value="Worldwide">Worldwide</option>
+        </select>
       </span>
       <h5 className="nav-group-title">Condition</h5>
       <span className="nav-group-item">
-        <Radio name="condition"
+        <select className="form-control"
+          multiple={false}
           value={this.state.condition}
           onChange={
-            this.handleChangeRadio.bind(this, 'condition')} >
-          <option value="all">all</option>
-          <option value="new">new</option>
-          <option value="used">used</option>
-          <option value="other">other</option>
-        </Radio>
+            this.handleChangeSelect.bind(this, 'condition')
+          } >
+          <option value="ALL">ALL</option>
+          <option value="New">New</option>
+          <option value="New other (see details)">
+            New other (see details)</option>
+          <option value="New with defects">
+            New with defects</option>
+          <option value="Manufacturer refurbished">
+            Manufacturer refurbished</option>
+          <option value="Seller refurbished">
+            Seller refurbished</option>
+          <option value="Used">Used</option>
+          <option value="Very Good">Very Good</option>
+          <option value="Good">Good</option>
+          <option value="Acceptable">Acceptable</option>
+          <option value="For parts or not working">
+            For parts or not working</option>
+        </select>
       </span>
       <h5 className="nav-group-title">Status</h5>
       <span className="nav-group-item">
-        <div className="checkbox">
-        <label><input type="checkbox" 
-          value="status" 
-          checked={this.state.status}
+        <select className="form-control"
+          multiple={false}
+          value={this.state.status}
           onChange={
-            this.handleChangeCheckbox.bind(this, 'status')} />
-        open only.</label>
-        </div>
+            this.handleChangeSelect.bind(this, 'status')
+          } >
+          <option value="ALL">ALL</option>
+          <option value="Active">Active</option>
+          <option value="Canceled">Canceled</option>
+          <option value="Ended">Ended</option>
+          <option value="EndedWithSales"> EndedWithSales</option>
+          <option value="EndedWithoutSales">EndedWithoutSales
+          </option>
+        </select>
       </span>
     </nav>
     </div>;

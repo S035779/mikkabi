@@ -21,8 +21,8 @@ export default class NoteTable extends React.Component {
     }
   };
 
-  renderExtension() {
-    return <div>( Auto Extension )</div>;
+  renderExtension(date) {
+    return <div>( { date } )</div>;
   }
 
   renderBids(bids) {
@@ -34,24 +34,31 @@ export default class NoteTable extends React.Component {
   }
   
   renderItem(obj) {
-    const item = obj.Item.ResultSet.Result;
-    const bids = obj.Bids.ResultSet.Result;
-    const Img = item.Img.Image1 ? item.Img.Image1 : '';
-    const Aid = item.AuctionID;
-    const Sid = item.Seller.Id;
-    const Stm = std.getLocalTimeStamp(item.StartTime);
-    const Etm = std.getLocalTimeStamp(item.EndTime);
-    const Url = item.AuctionItemUrl;
-    const Ttl = item.Title;
-    const Bid = item.Bids;
-    const Prc = parseInt(item.Price, 10).toLocaleString();
-    const Cdn = item.ItemStatus.Condition;
-    const Cgp = item.CategoryPath;
-    const Stt = item.Status;
-    const Cht = this.renderBids(bids);
+    const item = obj;
+    const Img = item.galleryURL[0] ? item.galleryURL[0] : '';
+    const Aid = item.itemId[0];
+    const Sid = item.sellerInfo[0].sellerUserName[0];
+    const Stm
+      = std.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+    const Etm
+      = std.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+    const Url = item.viewItemURL[0];
+    const Ttl = item.title[0];
+    const Pc1 = item.sellingStatus[0]
+      .currentPrice[0].__value__;
+    const Ci1 = item.sellingStatus[0]
+      .currentPrice[0]['@currencyId'];
+    const Pc2 = item.sellingStatus[0]
+      .convertedCurrentPrice[0].__value__;
+    const Ci2 = item.sellingStatus[0]
+      .convertedCurrentPrice[0]['@currencyId'];
+    const Cdn = item.condition[0].conditionDisplayName[0];
+    const Cgp = item.primaryCategory[0].categoryName[0];
+    const Shp = item.shippingInfo[0].shipToLocations[0];
+    const Stt = item.sellingStatus[0].sellingState[0];
+    const Ext
+      = this.renderExtension(item.sellingStatus[0].timeLeft[0]);
     const stt = this.renderStatus(0);
-    const Ext = item.IsAutomaticExtension === 'true'
-                  ? this.renderExtension() : '';
     const Upd = std.getLocalTimeStamp(Date.now());
 
     return <tbody key={Aid}><tr>
@@ -60,14 +67,16 @@ export default class NoteTable extends React.Component {
         <a href={Url} target='_blank'>{Ttl}</a><br />
         </span>
         <span>
-        Bid period : {Stm} ~ {Etm}<br />
+        Sell period : {Stm} ~ {Etm}<br />
         Condition : {Cdn}<br />
         Seller : {Sid}<br />
-        AuctionID : {Aid}<br />
+        ItemID : {Aid}<br />
         Category : {Cgp}
       </span></td>
-      <td>{Cht}</td>
-      <td><span>{Prc} yen</span><br /><span>( {Bid} bids )</span>
+      <td>{Shp}</td>
+      <td>
+        <span>{Pc1} {Ci1}</span><br />
+        <span>( {Pc2} {Ci2} )</span>
       </td>
       <td><span>{Stt}</span><br /><span>{Ext}</span></td>
       <td><span>{stt}</span><br /><span>{Upd}</span></td>
@@ -76,39 +85,46 @@ export default class NoteTable extends React.Component {
 
   filterItems(objs, options) {
     return objs.filter(obj => { 
-      const item = obj.Item.ResultSet.Result;
+      const item = obj;
       if(options != null) {
-        if(!item.Title.match(options.searchString)
+        if(!item.title[0].match(options.searchString)
           && options.searchString !== '') 
           return false;
-        if(options.bids 
-          && Number(item.Bids) === 0) 
+        if(options.shipping !== 'ALL'
+          && options.shipping !== item.shippingInfo[0]
+            .shipToLocations[0]) 
           return false;
-        if(options.condition !== 'all'
-          && options.condition !== item.ItemStatus.Condition)
+        if(options.condition !== 'ALL'
+          && options.condition !== item.condition[0]
+            .conditionDisplayName[0])
           return false;
-        if(options.status
-          && item.Status !== 'open')
+        if(options.status !== 'ALL'
+          && options.status !== item.sellingStatus[0]
+            .sellingState[0])
           return false;
-        if(!options.categoryPath.some(path => { 
-          return path === item.CategoryPath; })
+        if(!options.categoryPath.some(path => {
+          return path === item.primaryCategory[0]
+            .categoryName[0]; })
           && options.categoryPath.length !== 0 )
           return false;
         if(!options.seller.some(selr => { 
-          return selr === item.Seller.Id; })
+          return selr === item.sellerInfo[0]
+            .sellerUserName[0]; })
           && options.seller.length !== 0 )
           return false;
-        if(!options.AuctionID.some(auid => { 
-          return auid === item.AuctionID; })
-          && options.AuctionID.length !== 0 )
+        if(!options.itemId.some(auid => { 
+          return auid === item.itemId; })
+          && options.itemId.length !== 0 )
           return false;
         if(!isFinite(options.lowestPrice) 
           || !isFinite(options.highestPrice))
           return false;
-        if(Number(options.lowestPrice) > item.Price 
+        if(Number(options.lowestPrice) > item.sellingStatus[0]
+            .convertedCurrentPrice[0].__value__ 
           && options.lowestPrice !== '')
           return false;
-        if(Number(options.highestPrice) < item.Price 
+        if(Number(options.highestPrice) < item.sellingStatus[0]
+            .convertedCurrentPrice[0].__value__ 
           && options.highestPrice !== '')
           return false;
       }
@@ -127,8 +143,8 @@ export default class NoteTable extends React.Component {
       <thead><tr>
       <th>Image</th>
       <th>Detail</th>
-      <th>Chart</th>
-      <th>Bids</th>
+      <th>Shipping</th>
+      <th>Price</th>
       <th>Status</th>
       <th>Update</th>
       </tr></thead>

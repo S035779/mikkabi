@@ -13,10 +13,10 @@ class NoteStore extends ReduceStore {
         searchString: ''
         , highestPrice: ''
         , lowestPrice: ''
-        , bids: false
-        , condition: 'all'
-        , status: false
-        , AuctionID: []
+        , shipping: 'ALL'
+        , condition: 'ALL'
+        , status: 'ALL'
+        , itemId: []
         , categoryPath: []
         , seller: [] }
       , url:     ''

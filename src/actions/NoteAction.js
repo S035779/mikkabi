@@ -1,16 +1,17 @@
 import { dispatch } from '../dispatcher';
-import NoteApiClient from '../services/NoteApiClient';
+import NoteApiClient from '../services/eBApiClient';
 import { spn, log } from '../../utils/webutils';
 
 const pspid = `NoteAction`;
 
 export default {
   increment(options, page) {
+    log.trace(`${pspid}>`, options);
     page = ++page > 0 ? page : 1;
     return NoteApiClient.fetchItems(options, page)
     .then(items => {
       dispatch({ type: 'item/fetch', items, options, page });
-      log.info(`${pspid}> Response: item/fetch`);
+      log.info(`${pspid}>`, 'Response: item/fetch');
       spn.stop();
     });
   },
