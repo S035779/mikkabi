@@ -9,7 +9,7 @@ export default {
     page = ++page > 0 ? page : 1;
     return NoteApiClient.fetchItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch', items, page });
+      dispatch({ type: 'item/fetch', items, options, page });
       log.info(`${pspid}> Response: item/fetch`);
       spn.stop();
     });
@@ -18,7 +18,7 @@ export default {
     page = --page > 0 ? page : 1;
     return NoteApiClient.fetchItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch', items, page });
+      dispatch({ type: 'item/fetch', items, options, page });
       log.info(`${pspid}> Response: item/fetch`);
       spn.stop();
     });

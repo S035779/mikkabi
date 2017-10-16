@@ -21,53 +21,18 @@ class Note extends React.Component {
   }
 
   componentDidMount() {
-    const options = this.state.options;
-    const page = this.state.page;
-    NoteAction.increment(options, page);
-  }
-
-  handleChangeHome() {
-    log.info(`${pspid}> Request: handleChangeHome`);
-    const options = this.state.options;
-    NoteAction.increment(options, 0);
-    //NoteAction.incrementCloseWatch(this.state.page);
-  }
-
-  handleChangeSearch(options) {
-    log.info(`${pspid}> Request: handleChangeSearch`);
-    NoteAction.increment(options, 0);
-    this.setState({ options });
-  }
-
-  handleIncrement() {
-    log.info(`${pspid}> Request: handleIncrement`);
-    const options = this.state.options;
-    const page = this.state.page;
-    log.trace(this.state.options);
-    NoteAction.increment(options, page);
-    //NoteAction.incrementCloseWatch(this.state.page);
-  }
-
-  handleDecrement() {
-    log.info(`${pspid}> Request: handleDecrement`);
-    const options = this.state.options;
-    const page = this.state.page;
-    NoteAction.decrement(options, page);
-    //NoteAction.decrementCloseWatch(this.state.page);
+    NoteAction.increment(this.state.options, this.state.page);
   }
 
   render() {
     return <div className="window">
       <NoteHeader
         page={this.state.page}
-        onChangeHome={this.handleChangeHome.bind(this)}
-        onIncrement={this.handleIncrement.bind(this)}
-        onDecrement={this.handleDecrement.bind(this)} />
+        options={this.state.options} />
       <Tabs />
       <NoteBody
         items={this.state.items}
-        options={this.state.options}
-        onChangeSearch={this.handleChangeSearch.bind(this)} />
+        options={this.state.options} />
       <NoteFooter />
     </div>;
   }

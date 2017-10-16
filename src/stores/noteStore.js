@@ -7,8 +7,8 @@ const pspid = `noteStore`;
 class NoteStore extends ReduceStore {
   getInitialState() {
     return {
-      page:     0 
-      , items:  null
+      page:      0 
+      , items:   null
       , options: {
         searchString: ''
         , highestPrice: ''
@@ -19,7 +19,7 @@ class NoteStore extends ReduceStore {
         , AuctionID: []
         , categoryPath: []
         , seller: [] }
-      , url:    ''
+      , url:     ''
     };
   }
   
@@ -28,7 +28,8 @@ class NoteStore extends ReduceStore {
     switch (action.type) {
       case 'item/fetch':
         return Object.assign({}, state
-          , { items: action.items, page: action.page });
+          , { items: action.items, options: action.options
+            , page: action.page });
       case 'item/fetch/closewatch':
         return Object.assign({}, state
           , { items: action.items, page: action.page });

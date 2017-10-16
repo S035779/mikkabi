@@ -1,5 +1,6 @@
 import React from 'react';
-import Radio from '../Radio/Radio';
+import NoteAction from '../../actions/NoteAction';
+import Radio from '../../components/Radio/Radio';
 import { log } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
 
@@ -13,14 +14,12 @@ export default class NoteSidebar extends React.Component {
 
   handleChangeSearch(e) {
     log.info(`${pspid}> Request: handleChangeSearch`);
-    log.trace(`${pspid}>`, this.state);
+    NoteAction.increment(this.state, 0);
     e.preventDefault();
-    this.props.onChangeSearch(this.state)
   }
 
   handleChangeReset() {
     log.info(`${pspid}> Request: handleChangeReset`);
-    log.trace(`${pspid}>`, this.state);
     this.setState({
       highestPrice: ''
       , lowestPrice: ''
@@ -63,8 +62,8 @@ export default class NoteSidebar extends React.Component {
   }
 
   renderOption(objs, prop1, prop2) {
-    const len = arguments.length;
     if(!objs) return null;
+    const len = arguments.length;
     const items = objs.map(obj => {
       if(!obj.Item.hasOwnProperty('ResultSet')) return null;
       return (len === 2)
@@ -139,8 +138,8 @@ export default class NoteSidebar extends React.Component {
         <div className="form-group">
         <input type="text"
           className="form-control"
-          value={this.state.highestPrice} 
           placeholder="Highest price" 
+          value={this.state.highestPrice}
           onChange={
             this.handleChangeText.bind(this, 'highestPrice')} />
         </div>
@@ -149,8 +148,8 @@ export default class NoteSidebar extends React.Component {
         <div className="form-group">
         <input type="text"
           className="form-control"
-          value={this.state.lowestPrice} 
           placeholder="Lowest price" 
+          value={this.state.lowestPrice}
           onChange={
             this.handleChangeText.bind(this, 'lowestPrice')} />
         </div>
@@ -160,7 +159,7 @@ export default class NoteSidebar extends React.Component {
         <div className="checkbox">
         <label><input type="checkbox" 
           value="bids" 
-          checked={this.state.bids} 
+          checked={this.state.bids}
           onChange={
             this.handleChangeCheckbox.bind(this, 'bids')} />
         bids only.</label>
@@ -183,7 +182,7 @@ export default class NoteSidebar extends React.Component {
         <div className="checkbox">
         <label><input type="checkbox" 
           value="status" 
-          checked={this.state.status} 
+          checked={this.state.status}
           onChange={
             this.handleChangeCheckbox.bind(this, 'status')} />
         open only.</label>

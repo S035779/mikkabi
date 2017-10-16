@@ -5,17 +5,17 @@
  * @returns {string}
  */
 var encodeFormData = function(data) {
-    if (!data) return ""
-    var pairs = [];
-    for(var name in data) {
-        if (!data.hasOwnProperty(name)) continue;
-        if (typeof data[name] === "function") continue;
-        var value = data[name].toString();
-        name = encodeURIComponent(name.replace(" ", "+"));
-        value = encodeURIComponent(value.replace(" ", "+"));
-        pairs.push(name + "=" + value);
-    }
-    return pairs.join('&');
+  if (!data) return ""
+  var pairs = [];
+  for(var name in data) {
+    if (!data.hasOwnProperty(name)) continue;
+    if (typeof data[name] === "function") continue;
+    var value = data[name].toString();
+    name = encodeURIComponent(name.replace(" ", "+"));
+    value = encodeURIComponent(value.replace(" ", "+"));
+    pairs.push(name + "=" + value);
+  }
+  return pairs.join('&');
 };
 
 /**

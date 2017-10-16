@@ -1,23 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NoteAction from '../../actions/NoteAction';
 import { log } from '../../../utils/webutils';
 
 const pspid = `NoteHeaderView`;
 
 export default class NoteHeader extends React.Component {
+  handleChangeHome() {
+    log.info(`${pspid}>`, 'Request: handleChangeHome');
+    log.trace(`${pspid}>`, this.props.options);
+    NoteAction.increment(this.props.options, 0);
+  }
+
   handleIncrement() {
-    log.info(`${pspid}> Request: handleIncrement`);
-    this.props.onIncrement();
+    log.info(`${pspid}>`, 'Request: handleIncrement');
+    log.trace(`${pspid}>`, this.props.options);
+    NoteAction.increment(this.props.options, this.props.page);
   }
 
   handleDecrement() {
     log.info(`${pspid}> Request: handleDecrement`);
-    this.props.onDecrement();
-  }
-
-  handleChangeHome() {
-    log.info(`${pspid}> Request: handleChangeHome`);
-    this.props.onChangeHome();
+    log.trace(`${pspid}>`, this.props.options);
+    NoteAction.decrement(this.props.options, this.props.page);
   }
 
   render() {

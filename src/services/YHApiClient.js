@@ -3,7 +3,7 @@ import { M, log, spn } from '../../utils/webutils';
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
 
-const pspid = `NoteAPIClient`;
+const pspid = `YHAPIClient`;
 let items = [];
 
 const v1 = 'https://auctions.yahooapis.jp/AuctionWebService/V1/';
