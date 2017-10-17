@@ -36,7 +36,6 @@ var JSONP = {
     elm.src = url
       + "?" + (data ? encodeFormData(data) + '&' : '')
       + 'callback=JSONP.callbacks.' + idx;
-    console.log('element>', elm);
     JSONP.callbacks[idx] = function(res) {
       elm.parentNode.removeChild(elm);
       delete JSONP.callbacks[idx];

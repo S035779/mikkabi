@@ -2,15 +2,15 @@ import React from 'react';
 import { Container } from 'flux/utils';
 import ContainerConverter from '../../FluxContainerConverter';
 import noteStore from '../../stores/noteStore';
-import NoteHeader from '../../components/NoteHeader/NoteHeader';
-import NoteBody from '../../components/NoteBody/NoteBody';
-import NoteFooter from '../../components/NoteFooter/NoteFooter';
+import ProductsHeader from '../../components/ProductsHeader/ProductsHeader';
+import ProductsBody from '../../components/ProductsBody/ProductsBody';
+import ProductsFooter from '../../components/ProductsFooter/ProductsFooter';
 import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
-const pspid = `NoteControlerView`;
+const pspid = `ProductsControlerView`;
 
-class Note extends React.Component {
+class Products extends React.Component {
   static getStores() {
     return [noteStore];
   }
@@ -20,18 +20,18 @@ class Note extends React.Component {
   }
 
   render() {
-    const selected = 'note';
+    const selected = 'products';
     return <div className="window">
-      <NoteHeader
+      <ProductsHeader
         page={this.state.page}
         options={this.state.options} />
-      <Tabs selected={selected} />
-      <NoteBody
+      <Tabs selected={selected}/>
+      <ProductsBody
         items={this.state.items}
         options={this.state.options} />
-      <NoteFooter />
+      <ProductsFooter />
     </div>;
   }
 }
-export default Container.create(ContainerConverter.convert(Note));
+export default Container.create(ContainerConverter.convert(Products));
 

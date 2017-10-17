@@ -2,9 +2,9 @@ import { ReduceStore } from 'flux/utils';
 import dispatcher from '../dispatcher';
 import { log } from '../../utils/webutils';
 
-const pspid = `noteStore`;
+const pspid = `completeStore`;
 
-class NoteStore extends ReduceStore {
+class CompleteStore extends ReduceStore {
   getInitialState() {
     return {
       page:      0 
@@ -18,7 +18,8 @@ class NoteStore extends ReduceStore {
         , status: []
         , itemId: []
         , categoryPath: []
-        , seller: [] }
+        , seller: []
+        , soldItemOnly: false }
       , url:     ''
     };
   }
@@ -36,4 +37,4 @@ class NoteStore extends ReduceStore {
   }
 }
 
-export default new NoteStore(dispatcher);
+export default new CompleteStore(dispatcher);

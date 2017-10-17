@@ -2,9 +2,9 @@ import React from 'react';
 import std from '../../../utils/stdutils';
 import { log } from '../../../utils/webutils';
 
-const pspid = `NoteTableView`;
+const pspid = `CompleteTableView`;
 
-export default class NoteTable extends React.Component {
+export default class CompleteTable extends React.Component {
   renderStatus(status) {
     let styles;
     switch(status) {

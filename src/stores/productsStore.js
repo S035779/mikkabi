@@ -4,13 +4,14 @@ import { log } from '../../utils/webutils';
 
 const pspid = `noteStore`;
 
-class NoteStore extends ReduceStore {
+class ProductsStore extends ReduceStore {
   getInitialState() {
     return {
       page:      0 
       , items:   null
       , options: {
-        searchString: ''
+        productId: ''
+        , productType: ''
         , highestPrice: ''
         , lowestPrice: ''
         , shipping: []
@@ -36,4 +37,4 @@ class NoteStore extends ReduceStore {
   }
 }
 
-export default new NoteStore(dispatcher);
+export default new ProductsStore(dispatcher);

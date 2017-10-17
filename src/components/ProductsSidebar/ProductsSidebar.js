@@ -1,12 +1,12 @@
 import React from 'react';
-import NoteAction from '../../actions/NoteAction';
+import ProductsAction from '../../actions/ProductsAction';
 import Radio from '../../components/Radio/Radio';
 import { log } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
 
-const pspid = `NoteSidebarView`;
+const pspid = `ProductsSidebarView`;
 
-export default class NoteSidebar extends React.Component {
+export default class ProductsSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props.options);
@@ -15,7 +15,7 @@ export default class NoteSidebar extends React.Component {
   handleChangeSearch(e) {
     log.info(`${pspid}>`, 'Request: handleChangeSearch');
     log.trace(`${pspid}>`, this.state);
-    NoteAction.increment(this.state, 0);
+    ProductsAction.increment(this.state, 0);
     e.preventDefault();
   }
 
@@ -91,16 +91,28 @@ export default class NoteSidebar extends React.Component {
       , 'sellingStatus', 'sellingState');
     return <div className="pane pane-sm sidebar">
     <nav className="nav-group">
-      <h5 className="nav-group-title">Title</h5>
+      <h5 className="nav-group-title">ProductID</h5>
       <span className="nav-group-item">
         <div className="form-group">
         <input type="text"
           className="form-control"
           placeholder="Search of items"
-          value={this.state.searchString}
+          value={this.state.productId}
           onChange={
-            this.handleChangeText.bind(this, 'searchString')} />
+            this.handleChangeText.bind(this, 'productId')} />
         </div>
+      </span>
+      <h5 className="nav-group-title">ProductType</h5>
+      <span className="nav-group-item">
+        <Radio name="productType"
+          value={this.state.productType}
+          onChange={
+            this.handleChangeRadio.bind(this, 'productType')} >
+          <option value="ReferenceID">ReferenceID</option>
+          <option value="ISBN">ISBN</option>
+          <option value="UPC">UPC</option>
+          <option value="EAN">EAN</option>
+        </Radio>
       </span>
       <span className="nav-group-item">
         <div className="form-actions">

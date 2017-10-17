@@ -1,12 +1,12 @@
 import React from 'react';
-import NoteAction from '../../actions/NoteAction';
+import CompleteAction from '../../actions/CompleteAction';
 import Radio from '../../components/Radio/Radio';
 import { log } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
 
-const pspid = `NoteSidebarView`;
+const pspid = `CompleteSidebarView`;
 
-export default class NoteSidebar extends React.Component {
+export default class CompleteSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props.options);
@@ -15,7 +15,7 @@ export default class NoteSidebar extends React.Component {
   handleChangeSearch(e) {
     log.info(`${pspid}>`, 'Request: handleChangeSearch');
     log.trace(`${pspid}>`, this.state);
-    NoteAction.increment(this.state, 0);
+    CompleteAction.increment(this.state, 0);
     e.preventDefault();
   }
 
@@ -31,6 +31,7 @@ export default class NoteSidebar extends React.Component {
       , itemId: []
       , categoryPath: []
       , seller: []
+      , soldItemOnly: false
     });
   }
 
@@ -100,6 +101,17 @@ export default class NoteSidebar extends React.Component {
           value={this.state.searchString}
           onChange={
             this.handleChangeText.bind(this, 'searchString')} />
+        </div>
+      </span>
+      <h5 className="nav-group-title">Sold listing</h5>
+      <span className="nav-group-item">
+        <div className="checkbox">
+        <label><input type="checkbox"
+          value="soldItemOnly"
+          checked={this.state.soldItemOnly}
+          onChange={
+            this.handleChangeCheckbox.bind(this, 'soldItemOnly')}
+        />Sold items only.</label>
         </div>
       </span>
       <span className="nav-group-item">
