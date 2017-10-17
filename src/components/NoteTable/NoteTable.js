@@ -33,7 +33,7 @@ export default class NoteTable extends React.Component {
     return <Sparkline points={points} />
   }
   
-  renderItem(obj) {
+  renderItem(obj, idx) {
     const item = obj;
     const Img = item.galleryURL[0] ? item.galleryURL[0] : '';
     const Aid = item.itemId[0];
@@ -52,7 +52,8 @@ export default class NoteTable extends React.Component {
       .convertedCurrentPrice[0].__value__;
     const Ci2 = item.sellingStatus[0]
       .convertedCurrentPrice[0]['@currencyId'];
-    const Cdn = item.condition[0].conditionDisplayName[0];
+    const Cdn = item.hasOwnProperty('condition') 
+      ? item.condition[0].conditionDisplayName[0] : '';
     const Cgp = item.primaryCategory[0].categoryName[0];
     const Shp = item.shippingInfo[0].shipToLocations[0];
     const Stt = item.sellingStatus[0].sellingState[0];
@@ -61,7 +62,7 @@ export default class NoteTable extends React.Component {
     const stt = this.renderStatus(0);
     const Upd = std.getLocalTimeStamp(Date.now());
 
-    return <tbody key={Aid}><tr>
+    return <tbody key={idx}><tr>
       <td><img src={Img} width='128' height='128' /></td>
       <td><span>
         <a href={Url} target='_blank'>{Ttl}</a><br />
@@ -84,37 +85,38 @@ export default class NoteTable extends React.Component {
   }
 
   filterItems(objs, options) {
+    log.trace(`${pspid}>`, options);
     return objs.filter(obj => { 
       const item = obj;
       if(options != null) {
-        if(!item.title[0].match(options.searchString)
-          && options.searchString !== '') 
+        if(!options.shipping.some(shipping =>
+            shipping === item.shippingInfo[0]
+            .shipToLocations[0])
+          && options.shipping.length)
           return false;
-        if(options.shipping !== 'ALL'
-          && options.shipping !== item.shippingInfo[0]
-            .shipToLocations[0]) 
+        if(!options.condition.some(condition => 
+            condition === item.condition[0]
+            .conditionId[0])
+          && options.condition.length)
           return false;
-        if(options.condition !== 'ALL'
-          && options.condition !== item.condition[0]
-            .conditionDisplayName[0])
-          return false;
-        if(options.status !== 'ALL'
-          && options.status !== item.sellingStatus[0]
+        if(!options.status.some(status =>
+            status === item.sellingStatus[0]
             .sellingState[0])
+          && options.status.length)
           return false;
-        if(!options.categoryPath.some(path => {
-          return path === item.primaryCategory[0]
-            .categoryName[0]; })
-          && options.categoryPath.length !== 0 )
+        if(!options.categoryPath.some(path =>
+            path === item.primaryCategory[0]
+            .categoryName[0])
+          && options.categoryPath.length)
           return false;
-        if(!options.seller.some(selr => { 
-          return selr === item.sellerInfo[0]
-            .sellerUserName[0]; })
-          && options.seller.length !== 0 )
+        if(!options.seller.some(selr => 
+            selr === item.sellerInfo[0]
+            .sellerUserName[0])
+          && options.seller.length)
           return false;
-        if(!options.itemId.some(auid => { 
-          return auid === item.itemId; })
-          && options.itemId.length !== 0 )
+        if(!options.itemId.some(itemid => 
+            itemid === item.itemId[0])
+          && options.itemId.length)
           return false;
         if(!isFinite(options.lowestPrice) 
           || !isFinite(options.highestPrice))
@@ -136,7 +138,7 @@ export default class NoteTable extends React.Component {
     const options = this.props.options;
     const items = this.props.items
       ? this.filterItems(this.props.items, options)
-        .map(item => this.renderItem(item))
+        .map((item, idx) => this.renderItem(item, idx))
       : null;
     return <div className="pane">
       <table className="table-striped">

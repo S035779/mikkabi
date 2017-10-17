@@ -29,7 +29,6 @@ var JSONP = {
   index: 0,
   callbacks: {},
   request: function(url, data, callback) {
-    console.log('element>', data);
     var idx = '_' + JSONP.index++;
     var elm = document.createElement('script');
     elm.type = 'text/javascript';
@@ -37,6 +36,7 @@ var JSONP = {
     elm.src = url
       + "?" + (data ? encodeFormData(data) + '&' : '')
       + 'callback=JSONP.callbacks.' + idx;
+    console.log('element>', elm);
     JSONP.callbacks[idx] = function(res) {
       elm.parentNode.removeChild(elm);
       delete JSONP.callbacks[idx];

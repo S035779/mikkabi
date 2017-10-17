@@ -20,36 +20,37 @@ export default {
     switch(action) {
       case 'findItemsByKeywords':
         return new Promise(resolve => {
-          JSONP.request(v1, response, Items => {
-            resolve(Items.findItemsByKeywordsResponse[0]
-              .searchResult[0].item);
+          JSONP.request(v1, response, obj => {
+            resolve(obj);
           });
         });
       case 'findCompletedItems':
         return new Promise(resolve => {
-          JSONP.request(v1, response, Items => {
-            resolve(Items.findCompletedItemResponse[0]
-              .searchResult[0].item);
+          JSONP.request(v1, response, obj => {
+            resolve(obj
+              ? obj.findCompletedItemResponse[0]
+                .searchResult[0].item
+              : null);
           });
         });
       case 'findItemsByProduct':
         return new Promise(resolve => {
-          JSONP.request(v1, response, Items => {
-            resolve({
-              ProductID: response.ProductID
-              , Items: Items.findItemsByProductResponse[0]
-                .searchResult[0].item
-            });
+          JSONP.request(v1, response, obj => {
+            resolve(obj
+              ? { ProductID:  response.ProductID
+                , Items:      obj.findItemsByProductResponse[0]
+                  .searchResult[0].item }
+              : null);
           });
         });
       case 'FindProducts':
         return new Promise(resolve => {
-          JSONP.request(v2, response, Products => {
-            resolve({
-              ProductID: response.ProductID
-              , Products: Products.FindProductsResponse[0]
-                .searchResult[0].item
-            });
+          JSONP.request(v2, response, obj => {
+            resolve(obj
+              ? { ProductID: response.ProductID
+                , Products: obj.FindProductsResponse[0]
+                  .searchResult[0].item }
+              : null);
           });
         });
       default:
@@ -60,7 +61,6 @@ export default {
     }
   },
   getItems(options, page) {
-    log.trace(`${pspid}>`,'Request:', options);
     return this.request('findItemsByKeywords'
       , this.helperOptions({
         appid, page, operation: 'findItemsByKeywords'
@@ -85,10 +85,22 @@ export default {
       }, options));
   },
   fetchItems(options, page) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'page:', page);
     spn.spin();
     return this.getItems(options, page)
+      .then(this.resItems)
       .then(R.tap(this.traceLog.bind(this)))
+      .then(this.setItems)
       .catch(this.errorLog.bind(this));
+  },
+  resItems(obj) {
+    return obj.hasOwnProperty('findItemsByKeywordsResponse') 
+      ? obj.findItemsByKeywordsResponse[0] : null;
+  },
+  setItems(obj) {
+    return  obj && obj.ack[0] === 'Success'
+      ? obj.searchResult[0].item : null;
   },
   helperOptions(o, p) {
     const _o = o;
@@ -102,38 +114,45 @@ export default {
     options['REST-PAYLOAD'] = '';
     options['SECURITY-APPNAME'] = _o.appid;
     options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
     options['paginationInput.entriesPerPage'] = 20;
     options['paginationInput.pageNumber'] = _o.page;
-    options['outputSelector'] = 'SellerInfo';
 
-    options['keywords'] = _p.searchString
-      ? _p.searchString : undefined;
-    options['itemFilter(0).name']
-      = _p.seller && _p.seller.length
-      ? 'Seller'        : undefined;
-    options['itemFilter(0).value(0)']
-      = _p.seller && _p.seller.length
-      ? _p.seller       : undefined;
-    options['itemFilter(1).name']
-      = _p.highestPrice
-      ? 'MaxPrice'      : undefined;
-    options['itemFilter(1).value(0)']
-      = _p.highestPrice
-      ? _p.highestPrice : undefined;
-    options['itemFilter(2).name']
-      = _p.lowestPrice 
-      ? 'MinPrice'      : undefined;
-    options['itemFilter(2).value(0)']
-      = -p.lowestPrice
-      ? _p.lowestPrice  : undefined;
-    options['itemFilter(3).name']
-      = _p.condition && _p.condition !== 'ALL'
-      ? 'Condition'     : undefined;
-    options['itemFilter(3).value(0)']
-      = _p.condition && _p.condition !== 'ALL'
-      ? _p.condition    : undefined;
+    if(_p.searchString) {
+      options['keywords'] = _p.searchString;
+    } else {
+      options['keywords'] = '';
+    }
+
+    let n = 0;
+    if(_p.seller && _p.seller.length) {
+      options['itemFilter(' +n+ ').name'] = 'Seller';
+      _p.seller.forEach((slr, idx) =>
+        options['itemFilter(' +n+ ').value(' +idx+ ')'] = slr);
+      n++;
+    }
+
+    if(_p.highestPrice) {
+      options['itemFilter(' +n+ ').name'] = 'MaxPrice';
+      options['itemFilter(' +n+ ').value(0)']
+        = _p.highestPrice;
+      n++;
+    }
+
+    if(_p.lowestPrice) {
+      options['itemFilter(' +n+ ').name'] = 'MinPrice';
+      options['itemFilter(' +n+ ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
     
-    log.trace(`${pspid}>`, 'fetchIds options:', options);
+    if(_p.condition && _p.condition.length) {
+      options['itemFilter(' +n+ ').name'] = 'Condition';
+      _p.condition.forEach((cdn, idx) => 
+        options['itemFilter(' +n+ ').value(' +idx+ ')'] = cdn);
+      n++;
+    }
+    
+    log.trace(`${pspid}>`, 'Request:', options);
     return options;
   },
   traceLog(obj) {

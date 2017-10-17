@@ -13,9 +13,9 @@ class NoteStore extends ReduceStore {
         searchString: ''
         , highestPrice: ''
         , lowestPrice: ''
-        , shipping: 'ALL'
-        , condition: 'ALL'
-        , status: 'ALL'
+        , shipping: []
+        , condition: []
+        , status: []
         , itemId: []
         , categoryPath: []
         , seller: [] }

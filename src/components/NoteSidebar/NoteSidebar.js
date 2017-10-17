@@ -25,9 +25,9 @@ export default class NoteSidebar extends React.Component {
     this.setState({
       highestPrice: ''
       , lowestPrice: ''
-      , shipping: 'ALL'
-      , condition: 'ALL'
-      , status: 'ALL'
+      , shipping: []
+      , condition: []
+      , status: []
       , itemId: []
       , categoryPath: []
       , seller: []
@@ -83,8 +83,12 @@ export default class NoteSidebar extends React.Component {
       , 'primaryCategory', 'categoryName');
     const optSelrs = this.renderOption(this.props.items
       , 'sellerInfo', 'sellerUserName');
-    const optAuIDs = this.renderOption(this.props.items
+    const optImIDs = this.renderOption(this.props.items
       , 'itemId');
+    const optShpgs = this.renderOption(this.props.items
+      , 'shippingInfo', 'shipToLocations');
+    const optSttss = this.renderOption(this.props.items
+      , 'sellingStatus', 'sellingState');
     return <div className="pane pane-sm sidebar">
     <nav className="nav-group">
       <h5 className="nav-group-title">Title</h5>
@@ -132,7 +136,7 @@ export default class NoteSidebar extends React.Component {
           value={this.state.itemId}
           onChange={
             this.handleChangeSelect.bind(this, 'itemId')}
-        >{optAuIDs}</select>
+        >{optImIDs}</select>
       </span>
       <h5 className="nav-group-title">Price</h5>
       <span className="nav-group-item">
@@ -158,84 +162,45 @@ export default class NoteSidebar extends React.Component {
       <h5 className="nav-group-title">Shipping</h5>
       <span className="nav-group-item">
         <select className="form-control"
-          multiple={false}
+          multiple={true}
           value={this.state.shipping}
           onChange={
-            this.handleChangeSelect.bind(this, 'shipping')
-          } >
-          <option value="ALL">ALL</option>
-          <option value="Americas">Americas</option>
-          <option value="Asia">Asia</option>
-          <option value="AT">Austria</option>
-          <option value="AU">Australia</option>
-          <option value="BE">Belgium</option>
-          <option value="CA">Canada</option>
-          <option value="CH">Switzerland</option>
-          <option value="CN">China</option>
-          <option value="DE">Germany</option>
-          <option value="ES">Spain</option>
-          <option value="Europe">Europe</option>
-          <option value="EuropeanUnion">EuropeanUnion</option>
-          <option value="FR">France</option>
-          <option value="GB">United Kingdom</option>
-          <option value="Greater China">Greater China</option>
-          <option value="HK">Hong Kong</option>
-          <option value="IE">Ireland</option>
-          <option value="IN">India</option>
-          <option value="IT">Italy</option>
-          <option value="JP">Japan</option>
-          <option value="MX">Mexico</option>
-          <option value="NL">Netherlands</option>
-          <option value="None">No shipping.</option>
-          <option value="NZ">New Zealand</option>
-          <option value="Rest of Asia">Rest of Asia</option>
-          <option value="TW">Taiwan</option>
-          <option value="US">United States</option>
-          <option value="Worldwide">Worldwide</option>
-        </select>
+            this.handleChangeSelect.bind(this, 'shipping')}
+        >{optShpgs}</select>
       </span>
       <h5 className="nav-group-title">Condition</h5>
       <span className="nav-group-item">
         <select className="form-control"
-          multiple={false}
+          multiple={true}
           value={this.state.condition}
           onChange={
             this.handleChangeSelect.bind(this, 'condition')
           } >
-          <option value="ALL">ALL</option>
-          <option value="New">New</option>
-          <option value="New other (see details)">
+          <option value="1000">New</option>
+          <option value="1500">
             New other (see details)</option>
-          <option value="New with defects">
+          <option value="1750">
             New with defects</option>
-          <option value="Manufacturer refurbished">
+          <option value="2000">
             Manufacturer refurbished</option>
-          <option value="Seller refurbished">
+          <option value="2500">
             Seller refurbished</option>
-          <option value="Used">Used</option>
-          <option value="Very Good">Very Good</option>
-          <option value="Good">Good</option>
-          <option value="Acceptable">Acceptable</option>
-          <option value="For parts or not working">
+          <option value="3000">Used</option>
+          <option value="4000">Very Good</option>
+          <option value="5000">Good</option>
+          <option value="6000">Acceptable</option>
+          <option value="7000">
             For parts or not working</option>
         </select>
       </span>
       <h5 className="nav-group-title">Status</h5>
       <span className="nav-group-item">
         <select className="form-control"
-          multiple={false}
+          multiple={true}
           value={this.state.status}
           onChange={
-            this.handleChangeSelect.bind(this, 'status')
-          } >
-          <option value="ALL">ALL</option>
-          <option value="Active">Active</option>
-          <option value="Canceled">Canceled</option>
-          <option value="Ended">Ended</option>
-          <option value="EndedWithSales"> EndedWithSales</option>
-          <option value="EndedWithoutSales">EndedWithoutSales
-          </option>
-        </select>
+            this.handleChangeSelect.bind(this, 'status')}
+          >{optSttss}</select>
       </span>
     </nav>
     </div>;
