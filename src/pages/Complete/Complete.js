@@ -25,7 +25,7 @@ class Complete extends React.Component {
       <CompleteHeader
         page={this.state.page}
         options={this.state.options} />
-      <Tabs selected={selected}/>
+      <Tabs selected={selected} />
       <CompleteBody
         items={this.state.items}
         options={this.state.options} />

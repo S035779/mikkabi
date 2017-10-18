@@ -4,8 +4,14 @@
   "description": "",
   "main": "desktop.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "devel": "./node_modules/.bin/webpack-dev-server",
+    "pack": "electron-packager . WatchNote --platform=darwin,win32 --arch=x64 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
+    "pack:mac": "electron-packager . WatchNote --platform=darwin --arch=x64 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
+    "pack:win": "electron-packager . WatchNote --platform=win32 --arch=x64 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
+    "build": "webpack --config webpack.config.js",
+    "build:note": "webpack --config webpack.config_note.js",
+    "build:complete": "webpack --config webpack.config_complete.js",
+    "build:products": "webpack --config webpack.config_products.js",
+    "devel": "webpack-dev-server",
     "start": "electron ."
   },
   "repository": {
@@ -22,10 +28,12 @@
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "6.24.1",
     "css-loader": "^0.28.7",
     "dotenv-webpack": "^1.5.4",
     "electron": "1.7.9",
+    "electron-packager": "^9.1.0",
     "extract-text-webpack-plugin": "^3.0.1",
     "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^2.0.7",
