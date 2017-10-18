@@ -15,7 +15,7 @@ const config = {
       test: /\.js$/,
       loader: 'babel-loader',
       options: {
-        presets: ['react']
+        presets: ['react', ['es2015', { modules: false }]]
       }
     }, {
       test: /\.css$/,
@@ -35,7 +35,7 @@ const config = {
   plugins: [
     new Dotenv(),
     new ExtractTextPlugin('bundle.css'),
-    //new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin()
   ]
 };
 

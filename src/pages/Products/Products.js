@@ -25,7 +25,7 @@ class Products extends React.Component {
       <ProductsHeader
         page={this.state.page}
         options={this.state.options} />
-      <Tabs selected={selected}/>
+      <Tabs selected={selected} />
       <ProductsBody
         items={this.state.items}
         options={this.state.options} />

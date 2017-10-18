@@ -1,4 +1,4 @@
-import { M, log, spn } from '../../utils/webutils';
+import { M, log, spn, FS } from '../../utils/webutils';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
@@ -10,14 +10,21 @@ const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
 const v2 = 'http://open.api.ebay.com/shopping';
 const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
 const s2 = 'http://open.api.sandbox.ebay.com/shopping';
+const f1 = 'file://User/administrator/Downloads'
 
 const appid = process.env.app_id;
-const redirect_uri = process.env.redirect_uri;
+const sbxid = process.env.sbx_id;
 
 export default {
   request(action, response) {
     log.info(`${pspid}> Request: ${action}`);
     switch(action) {
+      case 'writeItemsByKeywords':
+        return new Promise(resolve => {
+          FS.request(f1, response, obj => {
+            resolve(obj);
+          });
+        });
       case 'findItemsByKeywords':
         return new Promise(resolve => {
           JSONP.request(v1, response, obj => {
@@ -52,6 +59,27 @@ export default {
           resolve(response);
         });
     }
+  },
+  putItems(options, pages) {
+    return this.request('writeItemsByKeywords'
+      , { options, pages, operation: 'writeItemsByKeywords'});
+  },
+  writeItems(options, pages) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'page:', page);
+    spn.spin();
+    return this.forItems(options, pages)
+      .then(this.resItems)
+      .then(this.setItems)
+      .then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
+  },
+  forItems(options, pages) {
+    const newItems = [];
+    for(let idx=0; idx < pages; idx++) {
+      newItems.push(this.getItems(options, idx));
+    }
+    return Promise.all(newItems);
   },
   getItems(options, page) {
     return this.request('findItemsByKeywords'

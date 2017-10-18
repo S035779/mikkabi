@@ -9,7 +9,7 @@ import Products from './pages/Products/Products';
 const Root = () => (
   <BrowserRouter>
     <Switch>
-    <Route exact path="/" component={Note}/>
+    <Route exact path="/" component={App}/>
     <Route path="/note" component={Note}/>
     <Route path="/complete" component={Complete}/>
     <Route path="/products" component={Products}/>
