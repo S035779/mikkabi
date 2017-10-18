@@ -7,6 +7,7 @@
     "pack": "electron-packager . WatchNote --platform=darwin,win32 --arch=x64 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
     "pack:mac": "electron-packager . WatchNote --platform=darwin --arch=x64 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
     "pack:win": "electron-packager . WatchNote --platform=win32 --arch=x64 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
+    "pack:ia32": "electron-packager . WatchNote --platform=win32 --arch=ia32 --electronVersion=1.7.9 --icon=\"public/favicon.ico\" --overwrite --asar --prune --out=\"dist\" --ignore=\"\\.git|src|tmp|utils|dist|node_modules/(electron-packager|electron-prebuilt|\\.bin)|\\.gitignore|npm-debug.log\"",
     "build": "webpack --config webpack.config.js",
     "build:note": "webpack --config webpack.config_note.js",
     "build:complete": "webpack --config webpack.config_complete.js",
