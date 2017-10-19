@@ -8,7 +8,7 @@ packager({
   , icon: "./public/favicon.ico"
   , platform: "win32"
   , arch: "ia32"
-  , version: "1.7.9"
+  , electronVersion: "1.7.9"
   , overwrite: true
   , asar: true
   , "app-version": package["version"]
