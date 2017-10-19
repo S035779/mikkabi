@@ -17,7 +17,7 @@ packager({
   , "version-string": {
     CompanyName: "HashiDesign.,Inc."
     , FileDescription: package["name"]
-    , OriginalFilename: package["name"] + ".exe
+    , OriginalFilename: package["name"] + ".exe"
     , "ProductName": package["name"]
     , InternalName: package["name"]
   }
