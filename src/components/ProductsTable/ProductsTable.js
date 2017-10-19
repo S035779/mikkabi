@@ -24,14 +24,6 @@ export default class ProductsTable extends React.Component {
     return <div>( { date } )</div>;
   }
 
-  renderBids(bids) {
-    if(!bids) return null;
-    const points = Array.isArray(bids)
-      ? bids.map(obj => parseInt(obj.Price, 10))
-      : [ parseInt(bids.Price, 10) ];
-    return <Sparkline points={points} />
-  }
-  
   renderItem(obj, idx) {
     const item = obj;
     const Img = item.hasOwnProperty('galleryURL')

@@ -24,4 +24,12 @@ export default {
       spn.stop();
     });
   },
+  writeItems(options, pages) {
+    return NoteApiClient.writeItems(options, pages)
+    .then(() => {
+      dispatch({ type: 'item/write', options, pages});
+      log.info(`${pspid}> Response: item/write`);
+      spn.stop();
+    });
+  },
 }

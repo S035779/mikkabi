@@ -1,30 +1,48 @@
 import { M, log, spn } from '../../utils/webutils';
+import fs from 'fs';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
 
 const pspid = `eBAPIClient`;
-let items = [];
 
 const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
 const v2 = 'http://open.api.ebay.com/shopping';
 const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
 const s2 = 'http://open.api.sandbox.ebay.com/shopping';
-const f1 = 'file://User/administrator/Downloads'
+const f1 = 'file://User/administrator/Downloads/'
 
 const appid = process.env.app_id;
 const sbxid = process.env.sbx_id;
 
 export default {
   request(action, response) {
-    log.info(`${pspid}> Request: ${action}`);
+    log.info(`${pspid}>`, 'Request:', action);
     switch(action) {
       case 'writeItemsByKeywords':
-      //  return new Promise(resolve => {
-      //    FS.request(f1, response, obj => {
-      //      resolve(obj);
-      //    });
-      //  });
+        return new Promise(resolve => {
+          fs.writeFile(f1 + action, response, err => {
+            if(err)
+              log.error(`${pspid}>`, 'Error occurred:', err);
+            resolve('The file has been saved!');
+          });
+        });
+      case 'writeCompletedItems':
+        return new Promise(resolve => {
+          fs.writeFile(f1 + action, response, err => {
+            if(err)
+              log.error(`${pspid}>`, 'Error occurred:', err);
+            resolve('The file has been saved!');
+          });
+        });
+      case 'writeItemsByProduct':
+        return new Promise(resolve => {
+          fs.writeFile(f1 + action, response, err => {
+            if(err)
+              log.error(`${pspid}>`, 'Error occurred:', err);
+            resolve('The file has been saved!');
+          });
+        });
       case 'findItemsByKeywords':
         return new Promise(resolve => {
           JSONP.request(v1, response, obj => {
@@ -43,16 +61,6 @@ export default {
             resolve(obj);
           });
         });
-      case 'FindProducts':
-        return new Promise(resolve => {
-          JSONP.request(v2, response, obj => {
-            resolve(obj
-              ? { ProductID: response.ProductID
-                , Products: obj.FindProductsResponse[0]
-                  .searchResult[0].item }
-              : null);
-          });
-        });
       default:
         return new Promise(resolve => {
           log.warn(`${pspid}> Unknown request !!`);
@@ -60,51 +68,18 @@ export default {
         });
     }
   },
-  putItems(options, pages) {
-    return this.request('writeItemsByKeywords'
-      , { options, pages, operation: 'writeItemsByKeywords'});
+  
+  putItems(items) {
+    return this.request('writeItemsByKeywords', items);
   },
-  writeItems(options, pages) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
-    return this.forItems(options, pages)
-      .then(this.resItems)
-      .then(this.setItems)
-      .then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
-  },
-  forItems(options, pages) {
-    const newItems = [];
-    for(let idx=0; idx < pages; idx++) {
-      newItems.push(this.getItems(options, idx));
-    }
-    return Promise.all(newItems);
-  },
+  
   getItems(options, page) {
     return this.request('findItemsByKeywords'
       , this.optItems({
         appid, page, operation: 'findItemsByKeywords'
       }, options));
   },
-  getCompletedItems(options, page) {
-    return this.request('findCompletedItems'
-      , this.optItems({
-        appid, page, operation: 'findCompletedItems'
-      }, options));
-  },
-  getProductItems(options, page) {
-    return this.request('findItemsByProduct'
-      , this.optProduct({
-        appid, page, operation: 'findItemsByProduct'
-      }, options));
-  },
-  getProducts(productID) {
-    return this.request('FindProducts'
-      , this.helperOptions({
-        productID, appid, operation: 'FindProducts'
-      }, options));
-  },
+  
   fetchItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
@@ -115,6 +90,49 @@ export default {
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
+  
+  writeItems(options, pages) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'pages:', pages);
+    spn.spin();
+    return this.getItems(options, 1)
+      .then(this.resItems)
+      .then(R.curry(this.forItems.bind(this))(options, pages))
+      .then(R.map(this.resItems.bind(this)))
+      .then(R.map(this.setItems.bind(this)))
+      .then(R.flatten)
+      .then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
+  },
+  
+  forItems(options, pages, res) {
+    const page =
+      Number(res.paginationOutput[0].totalPages[0]) < pages
+      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    const newItems = [];
+    
+    for(let idx=1; idx <= page; idx++) {
+      newItems.push(this.getItems(options, idx));
+    }
+    return Promise.all(newItems);
+  },
+  
+  resItems(obj) {
+    return obj.hasOwnProperty('findItemsByKeywordsResponse') 
+      ? obj.findItemsByKeywordsResponse[0] : null;
+  },
+  
+  putCompletedItems(items) {
+    return this.request('writeCompletedItems', items);
+  },
+  
+  getCompletedItems(options, page) {
+    return this.request('findCompletedItems'
+      , this.optItems({
+        appid, page, operation: 'findCompletedItems'
+      }, options));
+  },
+  
   fetchCompletedItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
@@ -125,6 +143,49 @@ export default {
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
+  
+  writeCompletedItems(options, pages) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'pages:', pages);
+    spn.spin();
+    return this.getCompletedItems(options, 1)
+      .then(this.resCompletedItems)
+      .then(R.curry(this.forCompletedItems.bind(this))(options, pages))
+      .then(R.map(this.resCompletedItems.bind(this)))
+      .then(R.map(this.setItems.bind(this)))
+      .then(R.flatten)
+      .then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
+  },
+  
+  forCompletedItems(options, pages, res) {
+    const page =
+      Number(res.paginationOutput[0].totalPages[0]) < pages
+      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    const newItems = [];
+    
+    for(let idx=1; idx <= page; idx++) {
+      newItems.push(this.getCompletedItems(options, idx));
+    }
+    return Promise.all(newItems);
+  },
+  
+  resCompletedItems(obj) {
+    return obj.hasOwnProperty('findCompletedItemsResponse') 
+      ? obj.findCompletedItemsResponse[0] : null;
+  },
+  
+  putProductItems(items) {
+    return this.request('writeItemsByProduct', items);
+  },
+  
+  getProductItems(options, page) {
+    return this.request('findItemsByProduct'
+      , this.optProduct({
+        appid, page, operation: 'findItemsByProduct'
+      }, options));
+  },
+  
   fetchProductItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
@@ -135,22 +196,43 @@ export default {
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
-  resItems(obj) {
-    return obj.hasOwnProperty('findItemsByKeywordsResponse') 
-      ? obj.findItemsByKeywordsResponse[0] : null;
+  
+  writeProductItems(options, pages) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'pages:', pages);
+    spn.spin();
+    return this.getProductItems(options, 1)
+      .then(this.resProductItems)
+      .then(R.curry(this.forProductItems.bind(this))(options, pages))
+      .then(R.map(this.resProductItems.bind(this)))
+      .then(R.map(this.setItems.bind(this)))
+      .then(R.flatten)
+      .then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
   },
-  resCompletedItems(obj) {
-    return obj.hasOwnProperty('findCompletedItemsResponse') 
-      ? obj.findCompletedItemsResponse[0] : null;
+  
+  forProductItems(options, pages, res) {
+    const page =
+      Number(res.paginationOutput[0].totalPages[0]) < pages
+      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    const newItems = [];
+    
+    for(let idx=1; idx <= page; idx++) {
+      newItems.push(this.getProductItems(options, idx));
+    }
+    return Promise.all(newItems);
   },
+  
   resProductItems(obj) {
     return obj.hasOwnProperty('findItemsByProductResponse') 
       ? obj.findItemsByProductResponse[0] : null;
   },
+  
   setItems(obj) {
     return  obj && obj.ack[0] === 'Success'
       ? obj.searchResult[0].item : null;
   },
+
   optProduct(o, p) {
     const _o = o;
     const _p = p ? p : {};
@@ -265,10 +347,135 @@ export default {
     log.trace(`${pspid}>`, 'Request:', options);
     return options;
   },
+
   traceLog(obj) {
-    return log.trace(`${pspid}>`, 'Trace log:', obj);
+    return console.log(`${pspid}>`, 'Trace log:', obj);
   },
+
   errorLog(err) {
     return log.error(`${pspid}>`, 'Error occurred:', err);
   },
+
+  renderStatus(status) {
+    switch(status) {
+      case 0:
+        return 'Now available.';
+      case 1:
+        return 'New added.';
+      case 2:
+        return 'Removed.';
+    }
+  };
+
+  renderExtension(date) {
+    return 'date';
+  }
+
+  renderItem(obj, idx) {
+    const item = obj;
+    const Img = item.hasOwnProperty('galleryURL')
+      ? item.galleryURL[0] : '';
+    const Aid = item.itemId[0];
+    const Pid = item.hasOwnProperty('productId')
+      ? item.productId.map(obj =>
+        `${obj.__value__} ( ${obj['@type']} )`) : ['---'];
+    const Sid = item.sellerInfo[0].sellerUserName[0];
+    const Stm
+      = std.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+    const Etm
+      = std.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+    const Url = item.viewItemURL[0];
+    const Ttl = item.title[0];
+    const Pc1 = item.sellingStatus[0]
+      .currentPrice[0].__value__;
+    const Ci1 = item.sellingStatus[0]
+      .currentPrice[0]['@currencyId'];
+    const Pc2 = item.sellingStatus[0]
+      .convertedCurrentPrice[0].__value__;
+    const Ci2 = item.sellingStatus[0]
+      .convertedCurrentPrice[0]['@currencyId'];
+    const Cdn = item.hasOwnProperty('condition') 
+      ? item.condition[0].conditionDisplayName[0] : '---';
+    const Cgp = item.primaryCategory[0].categoryName[0];
+    const Shp = item.shippingInfo[0].shipToLocations[0];
+    const Stt = item.sellingStatus[0].sellingState[0];
+    const Ext = item.sellingStatus[0].hasOwnProperty('timeLeft')
+      ? this.renderExtension(item.sellingStatus[0].timeLeft[0])
+      : '';
+    const stt = this.renderStatus(0);
+    const Upd = std.getLocalTimeStamp(Date.now());
+
+    return {
+      'Key':                idx
+      , 'Image':            Img
+      , 'Url':              Url
+      , 'Title':            Ttl
+      , 'Sell Start':       Stm
+      , 'Sell Stop':        Etm
+      , 'Condition':        Cdn
+      , 'Seller':           Sid
+      , 'ItemID':           Aid
+      , 'ProductID':        Pid.join(' ')
+      , 'Category':         Cgp
+      , 'Shipping':         Shp
+      , 'Price':            Pc1
+      , 'Currency':         Ci1
+      , 'Convert Price':    Pc2
+      , 'Convert Currency': Ci2
+      , 'Status':           Stt
+      , 'Extention':        Ext
+      , 'Avail':            stt
+      , 'Updated':          Upd
+    };
+  },
+
+  filterItems(objs, options) {
+    log.trace(`${pspid}>`, options);
+    return objs.filter(obj => { 
+      const item = obj;
+      if(options != null) {
+        if(!options.shipping.some(shipping =>
+            shipping === item.shippingInfo[0]
+            .shipToLocations[0])
+          && options.shipping.length)
+          return false;
+        if(!options.condition.some(condition => 
+            condition === item.condition[0]
+            .conditionId[0])
+          && options.condition.length)
+          return false;
+        if(!options.status.some(status =>
+            status === item.sellingStatus[0]
+            .sellingState[0])
+          && options.status.length)
+          return false;
+        if(!options.categoryPath.some(path =>
+            path === item.primaryCategory[0]
+            .categoryName[0])
+          && options.categoryPath.length)
+          return false;
+        if(!options.seller.some(selr => 
+            selr === item.sellerInfo[0]
+            .sellerUserName[0])
+          && options.seller.length)
+          return false;
+        if(!options.itemId.some(itemid => 
+            itemid === item.itemId[0])
+          && options.itemId.length)
+          return false;
+        if(!isFinite(options.lowestPrice) 
+          || !isFinite(options.highestPrice))
+          return false;
+        if(Number(options.lowestPrice) > item.sellingStatus[0]
+            .convertedCurrentPrice[0].__value__ 
+          && options.lowestPrice !== '')
+          return false;
+        if(Number(options.highestPrice) < item.sellingStatus[0]
+            .convertedCurrentPrice[0].__value__ 
+          && options.highestPrice !== '')
+          return false;
+      }
+      return true;
+    });
+  }
 }

@@ -2,9 +2,12 @@ import React from 'react';
 import { Container } from 'flux/utils';
 import ContainerConverter from '../../FluxContainerConverter';
 import completeStore from '../../stores/completeStore';
-import CompleteHeader from '../../components/CompleteHeader/CompleteHeader';
-import CompleteBody from '../../components/CompleteBody/CompleteBody';
-import CompleteFooter from '../../components/CompleteFooter/CompleteFooter';
+import CompleteHeader
+  from '../../components/CompleteHeader/CompleteHeader';
+import CompleteBody
+  from '../../components/CompleteBody/CompleteBody';
+import CompleteFooter
+  from '../../components/CompleteFooter/CompleteFooter';
 import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
@@ -21,6 +24,7 @@ class Complete extends React.Component {
 
   render() {
     const selected = 'complete';
+    const pages = 10;
     return <div className="window">
       <CompleteHeader
         page={this.state.page}
@@ -29,7 +33,9 @@ class Complete extends React.Component {
       <CompleteBody
         items={this.state.items}
         options={this.state.options} />
-      <CompleteFooter />
+      <CompleteFooter
+        options={this.state.options}
+        pages={pages} />
     </div>;
   }
 }

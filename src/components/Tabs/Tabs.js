@@ -4,10 +4,10 @@ import { log } from '../../../utils/webutils';
 
 const pspid = `TabsView`;
 
-//class Tabs extends React.Component {
-export default class Tabs extends React.Component {
+class Tabs extends React.Component {
+//export default class Tabs extends React.Component {
   handleClickPage(path) {
-    //this.props.history.push(path);
+    this.props.history.push(path);
   }
   joinClass(name) {
     const selected = this.props.selected;
@@ -29,4 +29,4 @@ export default class Tabs extends React.Component {
     </div>;
   }
 }
-//export default withRouter(Tabs);
+export default withRouter(Tabs);

@@ -2,9 +2,12 @@ import React from 'react';
 import { Container } from 'flux/utils';
 import ContainerConverter from '../../FluxContainerConverter';
 import noteStore from '../../stores/noteStore';
-import ProductsHeader from '../../components/ProductsHeader/ProductsHeader';
-import ProductsBody from '../../components/ProductsBody/ProductsBody';
-import ProductsFooter from '../../components/ProductsFooter/ProductsFooter';
+import ProductsHeader
+  from '../../components/ProductsHeader/ProductsHeader';
+import ProductsBody
+  from '../../components/ProductsBody/ProductsBody';
+import ProductsFooter
+  from '../../components/ProductsFooter/ProductsFooter';
 import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
@@ -21,6 +24,7 @@ class Products extends React.Component {
 
   render() {
     const selected = 'products';
+    const pages = 10;
     return <div className="window">
       <ProductsHeader
         page={this.state.page}
@@ -29,7 +33,9 @@ class Products extends React.Component {
       <ProductsBody
         items={this.state.items}
         options={this.state.options} />
-      <ProductsFooter />
+      <ProductsFooter
+        options={this.state.options}
+        pages={pages} />
     </div>;
   }
 }

@@ -10,6 +10,7 @@ const config = {
     path: path.resolve(__dirname, 'public'),
     filename: 'products.bundle.js'
   },
+  target: "node",
   module: {
     rules: [{
       test: /\.js$/,

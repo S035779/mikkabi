@@ -31,7 +31,6 @@ export default class CompleteSidebar extends React.Component {
       , itemId: []
       , categoryPath: []
       , seller: []
-      , soldItemOnly: false
     });
   }
 
