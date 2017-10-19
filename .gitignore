@@ -5,3 +5,5 @@ npm-debug.log
 /tmp/*
 /logs/*
 /dist/*
+/public/*.map
+/public/*.map

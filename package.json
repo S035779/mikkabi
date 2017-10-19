@@ -1,5 +1,5 @@
 {
-  "name": "WatchNote",
+  "name": "WatchNote!",
   "version": "1.0.1",
   "description": "eBay Search Tools",
   "main": "desktop.js",
@@ -20,7 +20,7 @@
     "url": "git+https://github.com/S035779/mikkabi.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mamoru Hashimoto",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/S035779/mikkabi/issues"
@@ -31,8 +31,8 @@
     "babel-loader": "7.1.2",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
-    "css-loader": "^0.28.7",
-    "dotenv-webpack": "^1.5.4",
+    "css-loader": "0.28.7",
+    "dotenv-webpack": "1.5.4",
     "extract-text-webpack-plugin": "3.0.1",
     "postcss-easy-import": "3.0.0",
     "postcss-loader": "2.0.7",
