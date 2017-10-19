@@ -1,4 +1,4 @@
-import { M, log, spn, FS } from '../../utils/webutils';
+import { M, log, spn } from '../../utils/webutils';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
@@ -20,11 +20,11 @@ export default {
     log.info(`${pspid}> Request: ${action}`);
     switch(action) {
       case 'writeItemsByKeywords':
-        return new Promise(resolve => {
-          FS.request(f1, response, obj => {
-            resolve(obj);
-          });
-        });
+      //  return new Promise(resolve => {
+      //    FS.request(f1, response, obj => {
+      //      resolve(obj);
+      //    });
+      //  });
       case 'findItemsByKeywords':
         return new Promise(resolve => {
           JSONP.request(v1, response, obj => {
