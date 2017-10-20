@@ -365,11 +365,11 @@ export default {
       case 2:
         return 'Removed.';
     }
-  };
+  },
 
   renderExtension(date) {
-    return 'date';
-  }
+    return date;
+  },
 
   renderItem(obj, idx) {
     const item = obj;

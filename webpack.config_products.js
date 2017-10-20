@@ -10,7 +10,7 @@ const config = {
     path: path.resolve(__dirname, 'public'),
     filename: 'products.bundle.js'
   },
-  target: "node",
+  target: "atom",
   module: {
     rules: [{
       test: /\.js$/,
@@ -36,7 +36,12 @@ const config = {
   plugins: [
     new Dotenv(),
     new ExtractTextPlugin('bundle.css'),
-    new webpack.optimize.UglifyJsPlugin()
+//    new webpack.optimize.UglifyJsPlugin({
+//      compress: true
+//      , warnings: false
+//      , sourceMap: false
+//      , mangle: true
+//    })
   ]
 };
 

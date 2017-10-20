@@ -4,15 +4,13 @@ const Dotenv = require('dotenv-webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
-  node: {
-    fs: "empty",
-  },
   context: path.resolve(__dirname, 'src'),
   entry: [ './main.js', './main.css' ],
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
+  target: "atom", 
   module: {
     rules: [{
       test: /\.js$/,
@@ -38,7 +36,6 @@ const config = {
   plugins: [
     new Dotenv(),
     new ExtractTextPlugin('bundle.css'),
-    //new webpack.optimize.UglifyJsPlugin()
   ]
 };
 
