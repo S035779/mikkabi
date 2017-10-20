@@ -8,9 +8,9 @@ const config = {
   entry: [ './main.js', './main.css' ],
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
-  target: "atom", 
+  target: "atom",
   module: {
     rules: [{
       test: /\.js$/,
