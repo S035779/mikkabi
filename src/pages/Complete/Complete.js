@@ -6,8 +6,8 @@ import CompleteHeader
   from '../../components/CompleteHeader/CompleteHeader';
 import CompleteBody
   from '../../components/CompleteBody/CompleteBody';
-import CompleteFooter
-  from '../../components/CompleteFooter/CompleteFooter';
+//import CompleteFooter
+//  from '../../components/CompleteFooter/CompleteFooter';
 import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
@@ -33,9 +33,11 @@ class Complete extends React.Component {
       <CompleteBody
         items={this.state.items}
         options={this.state.options} />
+      {/*
       <CompleteFooter
         options={this.state.options}
         pages={pages} />
+      */}
     </div>;
   }
 }

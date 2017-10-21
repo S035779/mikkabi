@@ -1,5 +1,5 @@
 import { M, log, spn } from '../../utils/webutils';
-import fs from 'fs';
+//import fs from 'fs';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
@@ -10,7 +10,6 @@ const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
 const v2 = 'http://open.api.ebay.com/shopping';
 const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
 const s2 = 'http://open.api.sandbox.ebay.com/shopping';
-const f1 = 'file://User/administrator/Downloads/'
 
 const appid = process.env.app_id;
 const sbxid = process.env.sbx_id;
@@ -19,6 +18,7 @@ export default {
   request(action, response) {
     log.info(`${pspid}>`, 'Request:', action);
     switch(action) {
+/*
       case 'writeItemsByKeywords':
         return new Promise(resolve => {
           fs.writeFile(f1 + action, response, err => {
@@ -43,6 +43,7 @@ export default {
             resolve('The file has been saved!');
           });
         });
+*/
       case 'findItemsByKeywords':
         return new Promise(resolve => {
           JSONP.request(v1, response, obj => {

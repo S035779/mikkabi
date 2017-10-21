@@ -6,8 +6,8 @@ import ProductsHeader
   from '../../components/ProductsHeader/ProductsHeader';
 import ProductsBody
   from '../../components/ProductsBody/ProductsBody';
-import ProductsFooter
-  from '../../components/ProductsFooter/ProductsFooter';
+//import ProductsFooter
+//  from '../../components/ProductsFooter/ProductsFooter';
 import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
@@ -33,9 +33,11 @@ class Products extends React.Component {
       <ProductsBody
         items={this.state.items}
         options={this.state.options} />
+      {/*
       <ProductsFooter
         options={this.state.options}
         pages={pages} />
+      */}
     </div>;
   }
 }

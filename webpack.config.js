@@ -10,7 +10,6 @@ const config = {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
-  target: "atom",
   module: {
     rules: [{
       test: /\.js$/,
