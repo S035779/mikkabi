@@ -24,10 +24,10 @@ export default {
       spn.stop();
     });
   },
-  writeItems(options, pages) {
-    return NoteApiClient.writeItems(options, pages)
+  writeItems(options) {
+    return NoteApiClient.writeItems(options)
     .then(() => {
-      dispatch({ type: 'item/write', options, pages});
+      dispatch({ type: 'item/write', options});
       log.info(`${pspid}> Response: item/write`);
       spn.stop();
     });

@@ -21,7 +21,6 @@ class Note extends React.Component {
 
   render() {
     const selected = 'note';
-    const pages = 10;
     return <div className="window">
       <NoteHeader
         page={this.state.page}
@@ -31,9 +30,7 @@ class Note extends React.Component {
         items={this.state.items}
         options={this.state.options} />
 {/*
-      <NoteFooter
-        options={this.state.options}
-        pages={pages} />
+      <NoteFooter options={this.state.options} />
 */} 
     </div>;
   }

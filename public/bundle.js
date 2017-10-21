@@ -837,7 +837,7 @@ module.exports.Store = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(92);
 /* unused harmony reexport matchPath */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(93);
-/* unused harmony reexport withRouter */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
 
 
 
@@ -2906,7 +2906,7 @@ var Tabs = function (_React$Component) {
   _createClass(Tabs, [{
     key: 'handleClickPage',
     value: function handleClickPage(path) {
-      //this.props.history.push(path);
+      this.props.history.push(path);
     }
   }, {
     key: 'joinClass',
@@ -2949,10 +2949,8 @@ var Tabs = function (_React$Component) {
 
   return Tabs;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-//export default withRouter(Tabs);
 
-
-/* unused harmony default export */ var _unused_webpack_default_export = (Tabs);
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* withRouter */])(Tabs));
 
 /***/ }),
 /* 32 */
@@ -4005,6 +4003,7 @@ module.exports = EmitterSubscription;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_NoteHeader_NoteHeader__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_NoteBody_NoteBody__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Tabs_Tabs__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_webutils__ = __webpack_require__(2);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4021,7 +4020,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 //import NoteFooter from '../../components/NoteFooter/NoteFooter';
 
-//import { log } from '../../../utils/webutils';
+
 
 var pspid = 'NoteControlerView';
 
@@ -4045,6 +4044,7 @@ var Note = function (_React$Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_NoteHeader_NoteHeader__["a" /* default */], {
           page: this.state.page,
           options: this.state.options }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Tabs_Tabs__["a" /* default */], { selected: selected }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_NoteBody_NoteBody__["a" /* default */], {
           items: this.state.items,
           options: this.state.options })
@@ -4107,6 +4107,7 @@ var NoteStore = function (_ReduceStore) {
         items: null,
         options: {
           searchString: '',
+          pages: 10,
           highestPrice: '',
           lowestPrice: '',
           shipping: [],
@@ -4235,6 +4236,7 @@ var Complete = function (_React$Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_CompleteHeader_CompleteHeader__["a" /* default */], {
           page: this.state.page,
           options: this.state.options }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Tabs_Tabs__["a" /* default */], { selected: selected }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_CompleteBody_CompleteBody__["a" /* default */], {
           items: this.state.items,
           options: this.state.options })
@@ -4355,6 +4357,7 @@ var Products = function (_React$Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_ProductsHeader_ProductsHeader__["a" /* default */], {
           page: this.state.page,
           options: this.state.options }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Tabs_Tabs__["a" /* default */], { selected: selected }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_ProductsBody_ProductsBody__["a" /* default */], {
           items: this.state.items,
           options: this.state.options })
@@ -16105,7 +16108,7 @@ Switch.propTypes = {
 // Written in this round about way for babel-transform-imports
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_withRouter__["a" /* default */]);
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_withRouter__["a" /* default */]);
 
 /***/ }),
 /* 94 */
@@ -18490,6 +18493,72 @@ var NoteSidebar = function (_React$Component) {
                 placeholder: 'Search of items',
                 value: this.state.searchString,
                 onChange: this.handleChangeText.bind(this, 'searchString') })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'h5',
+            { className: 'nav-group-title' },
+            'Output'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            { className: 'nav-group-item' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'select',
+              { className: 'form-control',
+                multiple: false,
+                value: this.state.pages,
+                onChange: this.handleChangeSelect.bind(this, 'pages') },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '10' },
+                '10 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '20' },
+                '20 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '30' },
+                '30 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '40' },
+                '40 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '50' },
+                '50 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '60' },
+                '60 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '70' },
+                '70 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '80' },
+                '80 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '90' },
+                '90 pages'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'option',
+                { value: '100' },
+                '100 pages'
+              )
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

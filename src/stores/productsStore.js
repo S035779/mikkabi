@@ -12,6 +12,7 @@ class ProductsStore extends ReduceStore {
       , options: {
         productId: ''
         , productType: ''
+        , pages: 10
         , highestPrice: ''
         , lowestPrice: ''
         , shipping: []

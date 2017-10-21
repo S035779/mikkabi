@@ -27,7 +27,7 @@ export default {
             resolve('The file has been saved!');
           });
         });
-      case 'writeCompletedItems':
+      case 'writeCompleteItems':
         return new Promise(resolve => {
           fs.writeFile(f1 + action, response, err => {
             if(err)
@@ -92,13 +92,14 @@ export default {
       .catch(this.errorLog.bind(this));
   },
   
-  writeItems(options, pages) {
+  writeItems(options) {
+    const pages = options.pages;
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'pages:', pages);
     spn.spin();
     return this.getItems(options, 1)
       .then(this.resItems)
-      .then(R.curry(this.forItems.bind(this))(options, pages))
+      .then(R.curry(this.forItems.bind(this))(options))
       .then(R.map(this.resItems.bind(this)))
       .then(R.map(this.setItems.bind(this)))
       .then(R.flatten)
@@ -106,7 +107,8 @@ export default {
       .catch(this.errorLog.bind(this));
   },
   
-  forItems(options, pages, res) {
+  forItems(options, res) {
+    const pages = options.pages;
     const page =
       Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
@@ -123,108 +125,112 @@ export default {
       ? obj.findItemsByKeywordsResponse[0] : null;
   },
   
-  putCompletedItems(items) {
+  putCompleteItems(items) {
     return this.request('writeCompletedItems', items);
   },
   
-  getCompletedItems(options, page) {
+  getCompleteItems(options, page) {
     return this.request('findCompletedItems'
       , this.optItems({
         appid, page, operation: 'findCompletedItems'
       }, options));
   },
   
-  fetchCompletedItems(options, page) {
+  fetchCompleteItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
     spn.spin();
-    return this.getCompletedItems(options, page)
-      .then(this.resCompletedItems)
+    return this.getCompleteItems(options, page)
+      .then(this.resCompleteItems)
       .then(this.setItems)
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
   
-  writeCompletedItems(options, pages) {
+  writeCompleteItems(options) {
+    const pages = options.pages;
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'pages:', pages);
     spn.spin();
-    return this.getCompletedItems(options, 1)
-      .then(this.resCompletedItems)
-      .then(R.curry(this.forCompletedItems.bind(this))(options, pages))
-      .then(R.map(this.resCompletedItems.bind(this)))
+    return this.getCompleteItems(options, 1)
+      .then(this.resCompleteItems)
+      .then(R.curry(this.forCompleteItems.bind(this))(options))
+      .then(R.map(this.resCompleteItems.bind(this)))
       .then(R.map(this.setItems.bind(this)))
       .then(R.flatten)
       .then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
   
-  forCompletedItems(options, pages, res) {
+  forCompleteItems(options, res) {
+    const pages = options.pages;
     const page =
       Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
     const newItems = [];
     
     for(let idx=1; idx <= page; idx++) {
-      newItems.push(this.getCompletedItems(options, idx));
+      newItems.push(this.getCompleteItems(options, idx));
     }
     return Promise.all(newItems);
   },
   
-  resCompletedItems(obj) {
+  resCompleteItems(obj) {
     return obj.hasOwnProperty('findCompletedItemsResponse') 
       ? obj.findCompletedItemsResponse[0] : null;
   },
   
-  putProductItems(items) {
+  putProductsItems(items) {
     return this.request('writeItemsByProduct', items);
   },
   
-  getProductItems(options, page) {
+  getProductsItems(options, page) {
     return this.request('findItemsByProduct'
-      , this.optProduct({
+      , this.optProducts({
         appid, page, operation: 'findItemsByProduct'
       }, options));
   },
   
-  fetchProductItems(options, page) {
+  fetchProductsItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
     spn.spin();
-    return this.getProductItems(options, page)
-      .then(this.resProductItems)
+    return this.getProductsItems(options, page)
+      .then(this.resProductsItems)
       .then(this.setItems)
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
   
-  writeProductItems(options, pages) {
+  writeProductsItems(options) {
+    const pages = options.pages;
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'pages:', pages);
     spn.spin();
-    return this.getProductItems(options, 1)
-      .then(this.resProductItems)
-      .then(R.curry(this.forProductItems.bind(this))(options, pages))
-      .then(R.map(this.resProductItems.bind(this)))
+    return this.getProductsItems(options, 1)
+      .then(this.resProductsItems)
+      .then(R.curry(this.forProductsItems.bind(this))(options))
+      .then(R.map(this.resProductsItems.bind(this)))
       .then(R.map(this.setItems.bind(this)))
       .then(R.flatten)
       .then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
   
-  forProductItems(options, pages, res) {
+  forProductsItems(options, res) {
+    const pages = options.pages;
     const page =
       Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
     const newItems = [];
     
     for(let idx=1; idx <= page; idx++) {
-      newItems.push(this.getProductItems(options, idx));
+      newItems.push(this.getProductsItems(options, idx));
     }
     return Promise.all(newItems);
   },
   
-  resProductItems(obj) {
+  resProductsItems(obj) {
     return obj.hasOwnProperty('findItemsByProductResponse') 
       ? obj.findItemsByProductResponse[0] : null;
   },
@@ -234,7 +240,7 @@ export default {
       ? obj.searchResult[0].item : null;
   },
 
-  optProduct(o, p) {
+  optProducts(o, p) {
     const _o = o;
     const _p = p ? p : {};
     const options = new Object();

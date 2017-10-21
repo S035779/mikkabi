@@ -19,10 +19,10 @@ export default class CompleteFooter extends React.Component {
   }
 
   handleClickSave() {
-    const {options, pages} = this.props
+    const options = this.props.options;
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
-      CompleteAction.writeItems(options, pages)
+      CompleteAction.writeCompleteItems(options)
       .catch((err) => { this.showErrorBox(err) });
     });
   }

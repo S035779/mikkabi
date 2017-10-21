@@ -11,6 +11,7 @@ class NoteStore extends ReduceStore {
       , items:   null
       , options: {
         searchString: ''
+        , pages: 10
         , highestPrice: ''
         , lowestPrice: ''
         , shipping: []

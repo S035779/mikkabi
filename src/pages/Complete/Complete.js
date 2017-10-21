@@ -24,7 +24,6 @@ class Complete extends React.Component {
 
   render() {
     const selected = 'complete';
-    const pages = 10;
     return <div className="window">
       <CompleteHeader
         page={this.state.page}
@@ -34,9 +33,7 @@ class Complete extends React.Component {
         items={this.state.items}
         options={this.state.options} />
       {/*
-      <CompleteFooter
-        options={this.state.options}
-        pages={pages} />
+      <CompleteFooter options={this.state.options} />
       */}
     </div>;
   }

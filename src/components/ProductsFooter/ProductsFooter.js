@@ -19,10 +19,10 @@ export default class ProductsFooter extends React.Component {
   }
 
   handleClickSave() {
-    const {options, pages} = this.props
+    const options = this.props.options;
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
-      ProductsAction.writeItems(options, pages)
+      ProductsAction.writeProductsItems(options)
       .catch((err) => { this.showErrorBox(err) });
     });
   }

@@ -12,11 +12,18 @@ export default class ProductsSidebar extends React.Component {
     this.state = Object.assign({}, props.options);
   }
 
+  handleChangeSave(e) {
+    log.info(`${pspid}>`, 'Request: handleChangeSave');
+    log.trace(`${pspid}>`, this.state);
+    e.preventDefault();
+    ProductsAction.writeProductsItems(this.state);
+  }
+
   handleChangeSearch(e) {
     log.info(`${pspid}>`, 'Request: handleChangeSearch');
     log.trace(`${pspid}>`, this.state);
-    ProductsAction.increment(this.state, 0);
     e.preventDefault();
+    ProductsAction.increment(this.state, 0);
   }
 
   handleChangeReset() {
@@ -212,6 +219,32 @@ export default class ProductsSidebar extends React.Component {
           onChange={
             this.handleChangeSelect.bind(this, 'status')}
           >{optSttss}</select>
+      </span>
+      <h5 className="nav-group-title">Output</h5>
+      <span className="nav-group-item">
+        <select className="form-control"
+          multiple={false}
+          value={this.state.pages}
+          onChange={
+            this.handleChangeSelect.bind(this, 'pages')}>
+          <option value="10">10 pages</option>
+          <option value="20">20 pages</option>
+          <option value="30">30 pages</option>
+          <option value="40">40 pages</option>
+          <option value="50">50 pages</option>
+          <option value="60">60 pages</option>
+          <option value="70">70 pages</option>
+          <option value="80">80 pages</option>
+          <option value="90">90 pages</option>
+          <option value="100">100 pages</option>
+        </select>
+      </span>
+      <span className="nav-group-item">
+        <div className="form-actions">
+        <button className="btn btn-mini btn-primary"
+          onClick={this.handleChangeSave.bind(this)}>Save
+        </button>
+        </div>
       </span>
     </nav>
     </div>;

@@ -8,7 +8,7 @@ export default {
   increment(options, page) {
     log.trace(`${pspid}>`, options);
     page = ++page > 0 ? page : 1;
-    return NoteApiClient.fetchProductItems(options, page)
+    return NoteApiClient.fetchProductsItems(options, page)
     .then(items => {
       dispatch({ type: 'item/fetch', items, options, page });
       log.info(`${pspid}>`, 'Response: item/fetch');
@@ -17,17 +17,17 @@ export default {
   },
   decrement(options, page) {
     page = --page > 0 ? page : 1;
-    return NoteApiClient.fetchProductItems(options, page)
+    return NoteApiClient.fetchProductsItems(options, page)
     .then(items => {
       dispatch({ type: 'item/fetch', items, options, page });
       log.info(`${pspid}> Response: item/fetch`);
       spn.stop();
     });
   },
-  writeItems(options, pages) {
-    return NoteApiClient.writeItems(options, pages)
+  writeProductsItems(options) {
+    return NoteApiClient.writeProductsItems(options)
     .then(() => {
-      dispatch({ type: 'item/write', options, pages});
+      dispatch({ type: 'item/write', options});
       log.info(`${pspid}> Response: item/write`);
       spn.stop();
     });

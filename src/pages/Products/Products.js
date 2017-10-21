@@ -24,7 +24,6 @@ class Products extends React.Component {
 
   render() {
     const selected = 'products';
-    const pages = 10;
     return <div className="window">
       <ProductsHeader
         page={this.state.page}
@@ -34,9 +33,7 @@ class Products extends React.Component {
         items={this.state.items}
         options={this.state.options} />
       {/*
-      <ProductsFooter
-        options={this.state.options}
-        pages={pages} />
+      <ProductsFooter options={this.state.options} />
       */}
     </div>;
   }

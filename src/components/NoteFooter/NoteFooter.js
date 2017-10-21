@@ -19,10 +19,10 @@ export default class NoteFooter extends React.Component {
   }
 
   handleClickSave() {
-    const {options, pages} = this.props
+    const options = this.props.options;
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
-      NoteAction.writeItems(options, pages)
+      NoteAction.writeItems(options)
       .catch((err) => { this.showErrorBox(err) });
     });
   }
