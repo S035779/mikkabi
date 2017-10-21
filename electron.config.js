@@ -6,8 +6,8 @@ packager({
   , dir: "."
   , out: "./dist"
   , icon: "./public/favicon.ico"
-  , platform: "win32,darwin"
-  , arch: "x64"
+  , platform: "all"
+  , arch: "all"
   , electronVersion: "1.7.9"
   , overwrite: true
   , asar: true
