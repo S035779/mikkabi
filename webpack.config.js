@@ -12,8 +12,8 @@ const config = {
     , products: './products.js'
     , common:   [  'react', 'react-dom', 'react-router-dom', './main.css' ]
   }
-  //, target: "electron-renderer"
-  , target: "web"
+  , target: "electron-renderer"
+  //, target: "web"
   , output: {
     path: path.resolve(__dirname, 'public')
     , filename: '[name].bundle.js'
