@@ -22,7 +22,7 @@ packager({
     , InternalName: package["name"]
   }
   , prune: true
-  , ignore: "\.git|\.gitignore|npm-debug.log|node_modules/(electron-packager|electron-prebuilt|\.bin)|public/(bundle\.js\.map|bundle\.css\.map)|src|utils|dist|tmp"
+  , ignore: "\.git|\.gitignore|npm-debug.log|node_modules/(electron-packager|electron-prebuilt|\.bin)|public/(\.map$)|src|utils|dist|tmp"
 }, function (err, appPaths) {
   if(err) throw new Error(err);
   console.log("Done: ", appPaths);

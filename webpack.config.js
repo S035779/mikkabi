@@ -6,16 +6,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = {
   context: path.resolve(__dirname, 'src')
   , entry: {
-    app:        './main'
-    , note:     './note'
-    , conplete: './complete'
-    , products: './products'
-    , vender:   [
-      'react'
-      , 'react-dom'
-      , 'react-router-dom'
-    ]}
-  , target: "atom"
+    app:        './main.js'
+    , note:     './note.js'
+    , complete: './complete.js'
+    , products: './products.js'
+    , common:   [  'react', 'react-dom', 'react-router-dom', './main.css' ]
+  }
+  //, target: "electron-renderer"
+  , target: "web"
   , output: {
     path: path.resolve(__dirname, 'public')
     , filename: '[name].bundle.js'
@@ -30,7 +28,7 @@ const config = {
     , {
       test: /\.css$/
       , use: ExtractTextPlugin.extract({
-        use: [ 'css-loader','postcss-loader']
+        use: [ 'css-loader', 'postcss-loader' ]
       })
     }]}
   , devServer: {
@@ -40,18 +38,28 @@ const config = {
     , watchContentBase: true
     , inline: true
   }
+  , performance: {
+    hints: "warning",
+    maxAssetSize: 700000,
+    maxEntrypointSize: 700000,
+    assetFilter: function(assetFilename) {
+      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
+    }
+  }
   , devtool: 'source-map'
   , plugins: [
     new Dotenv()
-    , new ExtractTextPlugin('[name].css')
+    , new ExtractTextPlugin({
+      filename: 'common.css'
+    })
     , new webpack.optimize.UglifyJsPlugin({
-      warnings:  false
-      , sourceMap: false
+      warnings:  true
+      , sourceMap: true
       , mangle:    true
     })
     , new webpack.optimize.CommonsChunkPlugin({
-      name:       'vender'
-      , filename: 'vender.js'
+      name:       'common'
+      , filename: 'common.js'
       , minChunk: Infinity
     })
   ]

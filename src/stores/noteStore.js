@@ -27,7 +27,7 @@ class NoteStore extends ReduceStore {
   reduce(state, action) {
     log.info(`${pspid}> Request: ${action.type}`);
     switch (action.type) {
-      case 'item/fetch':
+      case 'item/fetch/note':
         return Object.assign({}, state
           , { items: action.items, options: action.options
             , page: action.page });

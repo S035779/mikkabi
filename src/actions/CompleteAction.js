@@ -10,8 +10,8 @@ export default {
     page = ++page > 0 ? page : 1;
     return NoteApiClient.fetchCompleteItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch', items, options, page });
-      log.info(`${pspid}>`, 'Response: item/fetch');
+      dispatch({ type: 'item/fetch/complete', items, options, page });
+      log.info(`${pspid}>`, 'Response: item/fetch/complete');
       spn.stop();
     });
   },
@@ -19,16 +19,16 @@ export default {
     page = --page > 0 ? page : 1;
     return NoteApiClient.fetchCompleteItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch', items, options, page });
-      log.info(`${pspid}> Response: item/fetch`);
+      dispatch({ type: 'item/fetch/complete', items, options, page });
+      log.info(`${pspid}> Response: item/fetch/complete`);
       spn.stop();
     });
   },
   writeCompleteItems(options) {
     return NoteApiClient.writeCompleteItems(options)
     .then(() => {
-      dispatch({ type: 'item/write', options});
-      log.info(`${pspid}> Response: item/write`);
+      dispatch({ type: 'item/write/complete', options});
+      log.info(`${pspid}> Response: item/write/complete`);
       spn.stop();
     });
   },

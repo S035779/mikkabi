@@ -28,10 +28,10 @@ class ProductsStore extends ReduceStore {
   reduce(state, action) {
     log.info(`${pspid}> Request: ${action.type}`);
     switch (action.type) {
-      case 'item/fetch':
+      case 'item/fetch/products':
         return Object.assign({}, state
           , { items: action.items, options: action.options
-            , page: action.page });
+          , page: action.page });
       default:
         return state;
     }

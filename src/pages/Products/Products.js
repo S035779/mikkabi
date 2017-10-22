@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'flux/utils';
 import ContainerConverter from '../../FluxContainerConverter';
-import noteStore from '../../stores/noteStore';
+import productsStore from '../../stores/productsStore';
 import ProductsHeader
   from '../../components/ProductsHeader/ProductsHeader';
 import ProductsBody
@@ -15,11 +15,11 @@ const pspid = `ProductsControlerView`;
 
 class Products extends React.Component {
   static getStores() {
-    return [noteStore];
+    return [productsStore];
   }
 
   static calculateState() {
-    return noteStore.getState();
+    return productsStore.getState();
   }
 
   render() {
