@@ -7,13 +7,9 @@ const config = {
   context: path.resolve(__dirname, 'src')
   , entry: {
     app:        './main.js'
-    , note:     './note.js'
-    , complete: './complete.js'
-    , products: './products.js'
     , common:   [  'react', 'react-dom', 'react-router-dom', './main.css' ]
   }
-  , target: "electron-renderer"
-  //, target: "web"
+  , target: "web"
   , output: {
     path: path.resolve(__dirname, 'public')
     , filename: '[name].bundle.js'

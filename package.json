@@ -1,19 +1,11 @@
 {
-  "name": "WatchNote",
-  "version": "1.0.1",
-  "description": "eBay Search Tools",
+  "name": "WatchNote!",
+  "version": "1.0.2",
+  "description": "Yahoo! Auction Search Tools",
   "main": "desktop.js",
   "scripts": {
-    "pack": "node electron.config.js",
-    "pack:darwin": "node electron.config-darwin-x64.js",
-    "pack:win32-x64": "node electron.config-win32-x64.js",
-    "pack:win32-ia32": "node electron.config-win32-ia32.js",
     "build": "webpack --config webpack.config.js",
-    "build:complete": "webpack --config webpack.config_complete.js",
-    "build:note": "webpack --config webpack.config_note.js",
-    "build:products": "webpack --config webpack.config_products.js",
     "devel": "webpack-dev-server",
-    "start": "electron ."
   },
   "repository": {
     "type": "git",

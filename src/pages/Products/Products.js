@@ -5,7 +5,7 @@ import productsStore from '../../stores/productsStore';
 import ProductsHeader from '../../components/ProductsHeader/ProductsHeader';
 import ProductsBody from '../../components/ProductsBody/ProductsBody';
 import ProductsFooter from '../../components/ProductsFooter/ProductsFooter';
-//import Tabs from '../../components/Tabs/Tabs';
+import Tabs from '../../components/Tabs/Tabs';
 import { log } from '../../../utils/webutils';
 
 const pspid = `ProductsControlerView`;
@@ -25,9 +25,7 @@ class Products extends React.Component {
       <ProductsHeader
         page={this.state.page}
         options={this.state.options} />
-{/*
       <Tabs selected={selected} />
-*/}
       <ProductsBody
         items={this.state.items}
         options={this.state.options} />
