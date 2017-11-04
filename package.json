@@ -5,7 +5,7 @@
   "main": "desktop.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "devel": "webpack-dev-server",
+    "devel": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
