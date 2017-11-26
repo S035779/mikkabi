@@ -6,14 +6,13 @@ import Note from './pages/Note/Note';
 import Complete from './pages/Complete/Complete';
 import Products from './pages/Products/Products';
  
-const Root = () => (
+ReactDOM.render((
   <BrowserRouter>
     <Switch>
-    <Route path="/" component={App}/>
+    <Route exact path="/" component={App}/>
     <Route path="/note" component={Note}/>
     <Route path="/complete" component={Complete}/>
     <Route path="/products" component={Products}/>
     </Switch>
   </BrowserRouter>
-);
-ReactDOM.render(<Root />, document.getElementById('app'));
+), document.getElementById('app'));
